@@ -1,7 +1,7 @@
 <?php
 
-$username = 'cs4400_Group_59';
-$password = 'sg44Hlvd';
+$dbusername = 'cs4400_Group_59';
+$dbpassword = 'sg44Hlvd';
 $host = 'academic-mysql.cc.gatech.edu';   
 $database = 'cs4400_Group_59';
 
