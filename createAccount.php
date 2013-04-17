@@ -39,5 +39,5 @@ Confirm password: <input type="password" name="passwordConfirm"><br>
 <option value="gtStudentFaculty">Georgia Tech Student/Faculty</option>
 <option value="gtcrEmployee">GTCR Employee</option>
 </select><br>
-<input type="submit" value="Submit">
+<input type="submit" value="submit">
 </form>
