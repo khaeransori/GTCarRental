@@ -31,7 +31,7 @@
 <!-- ************************************************************* -->  
        
 
-<form>
+<form name="homeVerify" action="verifyHome.php" method="get">
 	<input type="radio" name="homeSelection" value="rentCar">Rent a car<br>
 	<input type="radio" name="homeSelection" value="viewPersonalInfo">Enter/View personal information<br>
 	<input type="radio" name="homeSelection" value="viewRentalInfo">View Rental information<br>

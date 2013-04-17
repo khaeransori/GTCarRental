@@ -33,10 +33,10 @@ if(isset($_POST['submit'])){
         $row = mysql_fetch_array($sql);
         $_SESSION['username'] = $row['Username'];
         $_SESSION['logged'] = TRUE;
-        header('Location: users_page.php'); // Modify to go to the page you would like
+        header('Location: home.php'); // Modify to go to the page you would like
         exit; 
     }else{ 
-        header('Location: login_page.php'); 
+        header('Location: index.php'); 
 
         exit; 
     } 
