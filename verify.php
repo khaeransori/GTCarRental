@@ -11,16 +11,7 @@ if(isset($_POST['submit'])){
     //Connect to the databasse 
     mysql_select_db($dbDatabase, $db)or die("Couldn't select the database."); 
     //Selects the database 
-     
-    /* 
-    The Above code can be in a different file, then you can place include'filename.php'; instead. 
-    */ 
-     
-    //Lets search the databse for the user name and password 
-    //Choose some sort of password encryption, I choose sha256 
-    //Password function (Not In all versions of MySQL). 
-    //$usr = mysql_real_escape_string($_POST['username']); 
-    //$pas = mysql_real_escape_string($_POST['password']); 
+
     $user = $_POST['username'];
     $pas = $_POST['password'];
 
@@ -33,15 +24,12 @@ if(isset($_POST['submit'])){
         $row = mysql_fetch_array($sql);
         $_SESSION['username'] = $row['Username'];
         $_SESSION['logged'] = TRUE;
-        header('Location: home.php'); // Modify to go to the page you would like
+        header('Location: home.php');
         exit; 
     }else{ 
         header('Location: index.php'); 
 
         exit; 
     } 
-}else{    //If the form button wasn't submitted go to the index page, or login page 
-    header('Location: createAccount.php');     
-    exit; 
 } 
 ?>
