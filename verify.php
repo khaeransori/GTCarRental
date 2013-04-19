@@ -15,21 +15,27 @@ if(isset($_POST['submit'])){
     $user = $_POST['username'];
     $pas = $_POST['password'];
 
-
+	//Get User from the user table
     $sql = mysql_query("SELECT * FROM User WHERE (Username = '$user') and (Password = '$pas')");
 
-    get_defined_vars();
-
+	//Check to see if user exists
     if(mysql_num_rows($sql) == 1){ 
         $row = mysql_fetch_array($sql);
         $_SESSION['username'] = $row['Username'];
-        $_SESSION['logged'] = TRUE;
-        header('Location: home.php');
-        exit; 
     }else{ 
         header('Location: index.php'); 
-
-        exit; 
     } 
+    
+    //Check to see if user is an employee or just a member
+    $memberCheck = mysql_query("SELECT * FROM Member WHERE (Username = '$user')");
+    $employeeCheck = mysql_query("SELECT * FROM Employee WHERE (Username = '$user')");
+    if(mysql_num_rows($employeeCheck) == 1){
+		header('Location: employeeHome.php');
+	}
+	else if(mysql_num_rows($memberCheck) == 1){
+		header('Location: home.php');
+	}
+	
+	//Do something for administrators???
 } 
 ?>
