@@ -1,10 +1,8 @@
 <?php
-
-//Stuff for error reporting that I haven't gotten working yet...
 ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
 session_start(); 
-if(isset($_POST['Submit'])){ 
+if(isset($_POST['submit'])){ 
 
     $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
     $dbUser = "cs4400_Group_59";            //Database User Name 
@@ -27,7 +25,7 @@ if(isset($_POST['Submit'])){
     if(mysql_num_rows($userExistsSql) == 0){ //if user doesn't already exist
         if ($pass == $passConfirm) { //if passwords match
             //SQL Statements to insert user to databases
-            $insertUserSql = mysql_query("INSERT INTO User (Username, Password) VALUES ('$user', '$pass')") or die(mysql_error());
+            mysql_query("INSERT INTO User (Username, Password) VALUES ('$user', '$pass')") or die(mysql_error());
             
             //If user is a student/faculty
 			if($userType == 'gtStudentFaculty'){
@@ -46,9 +44,8 @@ if(isset($_POST['Submit'])){
         else
              echo "Passwords didn't match";
     } 
-    else {
+    else
         echo "User already exists";
-    }
 }
 else{
     header('Location: createAccount.php'); //shouldn't occur, might delete later 
