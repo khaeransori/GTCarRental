@@ -1,8 +1,6 @@
 <?php
 //retrieve session data
   session_start();
-//echo "Manager SSN is  ". $_SESSION['manager'] . "<br />";
- $mgrssn = $_SESSION['manager'];  
 ?>
  
 <html>
@@ -22,14 +20,10 @@
 
 <!-- ************************************************************* -->  
 
-<?php
-
-
- ?>
-
 
 <!-- ************************************************************* -->  
 
+<form action="verifyEmployeeHome.php" method="get">
 <input type="radio" name="homeSelection" value="manageCars">Manage Cars<br>
 <input type="radio" name="homeSelection" value="maintenanceReq">Maintenance requests<br>
 <input type="radio" name="homeSelection" value="rentalChangeReq">Rental change request<br>
@@ -39,7 +33,5 @@
 <option value="locPrefReport">Location Preference Report</option>
 </select><br>
 
-
-<form>
 <input type="submit" value="Next >>">
 </form>

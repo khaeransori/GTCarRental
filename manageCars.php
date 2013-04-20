@@ -1,8 +1,14 @@
 <?php
 //retrieve session data
-  session_start();
-//echo "Manager SSN is  ". $_SESSION['manager'] . "<br />";
- $mgrssn = $_SESSION['manager'];  
+ session_start();
+ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
+ $dbUser = "cs4400_Group_59";            //Database User Name 
+ $dbPass = "sg44Hlvd";            //Database Password 
+ $dbDatabase = "cs4400_Group_59";    //Database Name 
+ 
+ $db = mysql_connect($dbHost,$dbUser,$dbPass)or die("Error connecting to database."); 
+ //Connect to the databasse 
+ mysql_select_db($dbDatabase, $db)or die("Couldn't select the database."); 
 ?>
  
 <html>
@@ -22,17 +28,12 @@
 
 <!-- ************************************************************* -->  
 
-<?php
-
-
- ?>
-
 
 <!-- ************************************************************* -->  
        
 
-<form>
-Vehicle Sno: <input type="text" name="username"><br>
+<form action="addCar.php" method="post">
+Vehicle Sno: <input type="text" name="serialNumber"><br>
 Car Model: <input type="text" name="carModel"><br>
 Car Type:
 <select name="carType">
@@ -41,10 +42,18 @@ Car Type:
 </select><br>
 
 Location:
+<br>
 <select name="location">
-<option value="studentCenter">Student Center</option>
-<option value="klaus">Klaus</option>
-</select><br>
+<?php
+//IMPORTANT CODE
+//Lists the locations from the SQL table in the option list
+$getLocations = mysql_query("SELECT Location_Name FROM Location");
+while ($temp = mysql_fetch_assoc($getLocations)) {
+    echo "<option value='".$temp['Location_Name']."'>".$temp['Location_Name']."</option>";
+}
+?>
+</select>
+<br>
 
 Color: <input type="text" name="color"><br>
 Hourly Rate: <input type="text" name="hourlyRate"><br>
@@ -80,9 +89,13 @@ Auxilary Cable:
 <form>
 
 Choose current location:
-<select name="currentLocation">
-<option value="klaus">Klaus</option>
-<option value="howey">Howey</option>
+<select name = "currentLocation">
+<?php
+$getLocations = mysql_query("SELECT Location_Name FROM Location");
+while ($temp2 = mysql_fetch_assoc($getLocations)) {
+    echo "<option value='".$temp2['Location_Name']."'>".$temp2['Location_Name']."</option>";
+}
+?>
 </select><br>
 
 Choose car:
@@ -114,6 +127,6 @@ Choose new location:
 <input type="submit" value="Submit Changes">
 
 </form>
-
+</html>
 
 
