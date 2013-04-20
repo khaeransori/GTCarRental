@@ -47,9 +47,10 @@ Choose car:
 	</select>
 	<br>
 
-	<textarea rows="10" cols="30" name="description">
-	Insert description here
-	</textarea>
+Description
+<br>
+<textarea rows="10" cols="30" name="description">
+</textarea>
 	
 	<input type="submit" value="Submit">
 </form>
