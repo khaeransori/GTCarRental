@@ -30,22 +30,26 @@
 
 
 <!-- ************************************************************* -->  
-       
 
-<form action = "maintenanceSubmit.php" method = "post">
-	Select the Location:
+<form action = "verifyMaintenance.php" method = "post">     
+Choose car:
 	<br>
-	<select name="location">
+	<select name="car">
 	<?php
 	//IMPORTANT CODE
 	//Lists the locations from the SQL table in the option list
-	$getLocations = mysql_query("SELECT Location_Name FROM Location");
-	while ($temp = mysql_fetch_assoc($getLocations)) {
-		echo "<option value='".$temp['Location_Name']."'>".$temp['Location_Name']."</option>";
+	$loc = $_POST['location'];
+	$getCars = mysql_query("SELECT Serial_Number FROM Car WHERE Location_Name = '$loc'");
+	while ($temp = mysql_fetch_assoc($getCars)) {
+		echo "<option value='".$temp['Serial_Number']."'>".$temp['Serial_Number']."</option>";
 	}
 	?>
 	</select>
 	<br>
 
-	<input type="submit" value="Choose Car">
+	<textarea rows="10" cols="30" name="description">
+	Insert description here
+	</textarea>
+	
+	<input type="submit" value="Submit">
 </form>
