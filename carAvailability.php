@@ -50,27 +50,44 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 <th><font color="#ffffff">Available Until</font></th>
 <th><font color="#ffffff">Estimated Cost</font></th>
 </tr>
+<tr>
+<td><font color="#ffffff">$_POST['pickup']</font></td>
+<td><font color="#ffffff">$_POST['return']</font></td>
+<td><font color="#ffffff">$_POST['carModel']</font></td>
+<td><font color="#ffffff">$_POST['carType']</font></td>
+<td><font color="#ffffff">$_POST['location']</font></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 	<?php
 	//IMPORTANT CODE
 	//Lists the locations from the SQL table in the option list
 	$getCars = mysql_query("SELECT * 
 		FROM Car AS c 
 		WHERE (
-		c.Location_Name =". $_POST['location'] ."AND 
-		((c.Type =". $_POST['carType'] .") OR (c.Model = ". $_POST['carModel'].")) AND 
+		c.Location_Name ='". $_POST['location'] ."' AND 
+		((c.Type =". $_POST['carType'] .") OR (c.Model = '". $_POST['carModel']."')) AND 
 		c.Under_Maintenence_Flag = 0 AND
 		NOT EXISTS ( 
 			SELECT Serial_Number
 			FROM Reservation AS r 
 			WHERE(
-			(r.Pick_Up_Date_Time >=". $_POST['pickup']." AND r.Pick_Up_Date_Time<". $_POST['return'].") OR 
-			(r.Return_Date_Time >". $_POST['pickup']." AND r.Return_Date_Time<=". $_POST['return'].") OR 
-			(r.Pick_Up_Date_Time <=". $_POST['pickup']." AND r.Return_Date_Time>=". $_POST['return'].")
+			(r.Pick_Up_Date_Time >='". $_POST['pickup']."' AND r.Pick_Up_Date_Time<'". $_POST['return']."') OR 
+			(r.Return_Date_Time >'". $_POST['pickup']."' AND r.Return_Date_Time<='". $_POST['return']."') OR 
+			(r.Pick_Up_Date_Time <='". $_POST['pickup']."' AND r.Return_Date_Time>='". $_POST['return']."')
 		)
 		)
 		)");
 	while ($temp = mysql_fetch_assoc($getCars)) {
-		//if ($temp["Under_Maintenence_Flag"]=="0"){
+		if ($temp["Under_Maintenence_Flag"]=="0"){
 		echo '<tr>';
 		echo '<td> <input type="radio" name="cars" value="'.$temp['Serial_Number'].'"></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
@@ -87,7 +104,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		echo '<td> <font color="#ffffff">AVAILABLE UNTIL GOES HERE!!!!!!!!!!!</font></td>';
 		echo '<td> <font color="#ffffff">ESTIMATED COST!!!!!!!!!</font></td>';
 		echo '</tr>';
-		//}
+		}
 	}
 	?>
 	</table>
