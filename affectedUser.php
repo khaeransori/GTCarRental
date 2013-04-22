@@ -1,8 +1,8 @@
 <?php
 //retrieve session data
-  session_start();
+	session_start();
 
-	$mgrssn = $_SESSION['manager'];  
+	//$mgrssn = $_SESSION['manager'];  
 	$dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
     $dbUser = "cs4400_Group_59";            //Database User Name 
     $dbPass = "sg44Hlvd";            //Database Password 
@@ -20,7 +20,7 @@
 
 	<p><b>User Affected </b></p> 
 
-	<form>
+	<form action="verifyAffected.php" method="post">
 		Username: '; echo  $affect['Username'] . "<br>";
 	
 		echo 'Original pick up time: '; echo  $affect['Pick_Up_Date_Time'] . "<br>";
@@ -31,7 +31,7 @@
 		echo 'Email Address: '; echo  $personalInfo['Email'] . "<br>";
 		echo 'Phone Number: ';  echo  $personalInfo['Phone_Number'] . "<br>";
 	
-	echo"	<input type='submit' value='Cancel Reservation' name = 'cancel'>
-			<input type='submit' value='Show car availability' name = 'availability'>
-</form>";
+	echo'	<input type="submit" value="Cancel Reservation" name = "cancel">
+			<input type="submit" value="Show car availability" name = "availability">
+</form>';
 ?>

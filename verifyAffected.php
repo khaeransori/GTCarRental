@@ -1,7 +1,7 @@
 <?php
 //retrieve session data
   session_start();
-$dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
+ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
  $dbUser = "cs4400_Group_59";            //Database User Name 
  $dbPass = "sg44Hlvd";            //Database Password 
  $dbDatabase = "cs4400_Group_59";    //Database Name 
@@ -18,13 +18,10 @@ if ( isset( $_POST['cancel'] ) ) {
 	mysql_query("Delete from Reservation 
 	WHERE Username = '$username' AND Pick_Up_Date_Time = '$pickup' 
 	AND Serial_Number = '$serialnum'");
-	header(Location: rentACar.php);
+	header('Location: employeeHome.php');
 }
 else{
-	
-	header(Location: employeeHome.php);
-
+	header('Location: rentACar.php');
 }
 
-
-}
+?>

@@ -75,7 +75,6 @@
 
 	New return date & time (YYYY-MM-DD HH:MM:SS format):
 	<input type="text" name="new"><br>
-	
 
 	<input type="submit" value="Update">
 </form>
