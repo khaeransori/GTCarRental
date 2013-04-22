@@ -31,7 +31,7 @@
 		echo 'Email Address: '; echo  $personalInfo['Email'] . "<br>";
 		echo 'Phone Number: ';  echo  $personalInfo['Phone_Number'] . "<br>";
 	
-	echo'	<input type="submit" value="Cancel Reservation">
-			<input type="submit" value="Show car availability">
-</form>';
+	echo"	<input type='submit' value='Cancel Reservation' name = 'cancel'>
+			<input type='submit' value='Show car availability' name = 'availability'>
+</form>";
 ?>
