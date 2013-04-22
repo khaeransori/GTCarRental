@@ -85,6 +85,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		echo '<td> <font color="#ffffff">'.$temp['Color'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Hourly_Rate'].'</td>';
 		echo '<td> <font color="#ffffff"> FREQUENT </font></td>';
+		echo '<td> <font color="#ffffff"> Daily Discount Rate or some shit </font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Daily_Rate'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Capacity'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Transmission_Type'].'</font></td>';
