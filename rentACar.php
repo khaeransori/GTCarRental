@@ -1,8 +1,14 @@
 <?php
 //retrieve session data
-  session_start();
-//echo "Manager SSN is  ". $_SESSION['manager'] . "<br />";
- $mgrssn = $_SESSION['manager'];  
+ session_start();
+ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
+ $dbUser = "cs4400_Group_59";            //Database User Name 
+ $dbPass = "sg44Hlvd";            //Database Password 
+ $dbDatabase = "cs4400_Group_59";    //Database Name 
+ 
+ $db = mysql_connect($dbHost,$dbUser,$dbPass)or die("Error connecting to database."); 
+ //Connect to the databasse 
+ mysql_select_db($dbDatabase, $db)or die("Couldn't select the database.");   
 ?>
  
 <html>
@@ -52,24 +58,43 @@ Return time:
 <option value="930">9:30 AM</option>
 </select><br>
 
-Location:
+Select Location:
 <select name="location">
-<option value="klaus">Klaus</option>
-<option value="howey">Howey</option>
+	<?php
+	//Lists the locations from the SQL table in the option list
+	$getLocations = mysql_query("SELECT Location_Name FROM Location");
+	while ($temp = mysql_fetch_assoc($getLocations)) {
+		echo "<option value='".$temp['Location_Name']."'>".$temp['Location_Name']."</option>";
+	}
+	?>
 </select><br>
 
-Cars:
+
+Cars Type:
 <select name="carType">
-<option value="klaus">Honda</option>
-<option value="howey">Toyota</option>
+	<?php
+	//Lists the car types from the SQL table in the option list
+	$getCarTypes = mysql_query("SELECT DISTINCT Type FROM Car");
+	while ($temp = mysql_fetch_assoc($getCarTypes)) {
+		echo "<option value='".$temp['Type']."'>".$temp['Type']."</option>";
+	}
+	?>
 </select>
-<select name="subCarType">
-<option value="SUV">SUV</option>
-<option value="sedan">Sedan</option>
-<option value="coupe">Coupe</option>
+
+
+Car Model: 
+<select name="carType">
+	<?php
+	//Lists the car types from the SQL table in the option list
+	$getCarModels = mysql_query("SELECT DISTINCT Model FROM Car");
+	while ($temp = mysql_fetch_assoc($getCarModels)) {
+		echo "<option value='".$temp['Model']."'>".$temp['Model']."</option>";
+	}
+	?>
 </select><br>
+</form>
 
 
-
-<input type="submit" value="Search">
+<form action="carAvailability.php" method="post">
+    <input type="submit" name="search" value="Search">
 </form>
