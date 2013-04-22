@@ -21,7 +21,7 @@ session_start();
     $sqlUpdate = mysql_query("UPDATE Reservation 
 	SET Return_Date_Time = '$newReturn'
 	WHERE Username = '$username' AND Return_Date_Time = '$origReturn' 
-	AND Serial_Number = '$carModel' AND Location = '$location'");
+	AND Serial_Number = '$carModel'");
 	
 	//find others affected
 	$sqlAffected = mysql_query("Select * From Reservation 

@@ -12,25 +12,26 @@
     //Connect to the databasse 
     mysql_select_db($dbDatabase, $db)or die("Couldn't select the database."); 
 	$affect = $_SESSION['affect'];
+	$username = $affect['Username'];
+	$personalInfo = mysql_fetch_array(mysql_query("Select * From Member WHERE Username = '$username';"));
+	echo '<html>
+	<head>
+	<title>GT Car Rental: Rental Change Request   </title>
 
-echo '<html>
-<head>
-<title>GT Car Rental: Rental Change Request   </title>
+	<p><b>User Affected </b></p> 
 
-<p><b>User Affected </b></p> 
+	<form>
+		Username: '; echo  $affect['Username'] . "<br>";
+	
+		echo 'Original pick up time: '; echo  $affect['Pick_Up_Date_Time'] . "<br>";
 
-<form>
-	Username: '; echo  $affect['Username'] . "<br>";
-
-	echo 'Original pick up time: '; echo  $affect['Pick_Up_Date_Time'] . "<br>";
-
-	echo 'Original return time: '; echo  $affect['Return_Date_Time'] . "<br>";
+		echo 'Original return time: '; echo  $affect['Return_Date_Time'] . "<br>";
 	
 
-	//Email Address:
-	//Phone Number: 
+		echo 'Email Address: '; echo  $personalInfo['Email'] . "<br>";
+		echo 'Phone Number: ';  echo  $personalInfo['Phone_Number'] . "<br>";
 	
-echo'	<input type="submit" value="Cancel Reservation">
-	<input type="submit" value="Show car availability">
+	echo'	<input type="submit" value="Cancel Reservation">
+			<input type="submit" value="Show car availability">
 </form>';
 ?>
