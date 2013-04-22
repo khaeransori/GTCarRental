@@ -70,7 +70,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		)
 		)");
 	while ($temp = mysql_fetch_assoc($getCars)) {
-		if ($temp["Under_Maintenence_Flag"]=="0"){
+		//if ($temp["Under_Maintenence_Flag"]=="0"){
 		echo '<tr>';
 		echo '<td> <input type="radio" name="cars" value="'.$temp['Serial_Number'].'"></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
@@ -87,7 +87,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		echo '<td> <font color="#ffffff">AVAILABLE UNTIL GOES HERE!!!!!!!!!!!</font></td>';
 		echo '<td> <font color="#ffffff">ESTIMATED COST!!!!!!!!!</font></td>';
 		echo '</tr>';
-		}
+		//}
 	}
 	?>
 	</table>
