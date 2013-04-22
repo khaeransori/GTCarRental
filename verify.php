@@ -24,18 +24,22 @@ if(isset($_POST['submit'])){
         $_SESSION['username'] = $row['Username'];
     }else{ 
         header('Location: index.php'); 
+        exit;
     } 
     
     //Check to see if user is an employee or just a member
     $memberCheck = mysql_query("SELECT * FROM Member WHERE (Username = '$user')");
     $employeeCheck = mysql_query("SELECT * FROM Employee WHERE (Username = '$user')");
-    if(mysql_num_rows($employeeCheck) == 1){
-		header('Location: employeeHome.php');
-	}
-	else if(mysql_num_rows($memberCheck) == 1){
+    if(mysql_num_rows($memberCheck) == 1){
 		header('Location: home.php');
 	}
-	
-	//Do something for administrators???
+	else if(mysql_num_rows($employeeCheck) == 1){
+		header('Location: employeeHome.php');
+	}
+	else if(mysql_num_rows($adminCheck) == 1){
+		header('Location: employeeHome.php');
+	}
+	else
+		header('Location: index.php');
 } 
 ?>
