@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-if(isset($_POST['Update'])){ 
+
 
     $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
     $dbUser = "cs4400_Group_59";            //Database User Name 
@@ -12,16 +12,17 @@ if(isset($_POST['Update'])){
     mysql_select_db($dbDatabase, $db)or die("Couldn't select the database."); 
     //Selects the database 
 	$username = $_POST['username'];
-    $carModel = $_POST['carModel'];
+    $carModel = $_POST['model'];
     $location = $_POST['location'];
-	$origReturn= $_POST['orignal'];
+	$origReturn= $_POST['original'];
 	$newReturn = $_POST['new'];
-	$lateFees = 120;
+	//$lateFees = 120;
 	//Update table
-    $sqlUpdate = mysql_query("SET Return_Date_Time = $newReturn,Late_Fees = $lateFees
-    WHERE (Username = $username) AND (Return_Date_Time= $origReturn);");
+    $sqlUpdate = mysql_query("UPDATE Reservation 
+	SET Return_Date_Time = '$newReturn'
+	WHERE Username = '$username' AND Return_Date_Time = '$origReturn' AND Location = '$location'");
 
 	header('Location: employeeHome.php');
 
-} 
+
 ?>

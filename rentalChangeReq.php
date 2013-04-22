@@ -27,18 +27,6 @@
 
 <p><b>Rental Change Request </b></p>        
 
-
-<!-- ************************************************************* -->  
-
-<?php
-
-
- ?>
-
-
-<!-- ************************************************************* -->  
-       
-
 <form action="verifyChange.php" method="post">
 	Enter username: 
 	<select name="username">
@@ -53,11 +41,11 @@
 	<br>
 	<p><b>Rental Information </b></p> 
 
-	Car Model: Select Location:
+	Car Model:
 	<select name="model">';
 
 		//Lists the locations from the SQL table in the option list
-		$getModel = mysql_query("SELECT Model FROM Car");
+		$getModel = mysql_query("SELECT DISTINCT Model, Serial_Number FROM Car");
 		while ($temp = mysql_fetch_assoc($getModel)) {
 			echo "<option value='".$temp['Model']."'>".$temp['Model']."</option>";
 		}
@@ -75,7 +63,7 @@
 	echo '</select><br>
 
 	Original return date & time (YYYY-MM-DD HH:MM:SS format):
-	<select name="dateTime">';
+	<select name="original">';
 
 		//Lists the locations from the SQL table in the option list
 		$getModel = mysql_query("SELECT Return_Date_Time FROM Reservation WHERE Username = username");
