@@ -38,7 +38,7 @@
 
 <p><b>Current Reservations </b></p> 
 
-
+<form action="rentalInfoVerify.php" method="post">
 <table border = "1">
 	<tr>
 		<th><font color="#ffffff">Reservation Date/Time</font></th>
@@ -52,7 +52,7 @@
 
 	<?php
 	$user = $_SESSION['username'];
-	$getFutureReservations = mysql_query("SELECT Reservation.Username, Reservation.Pick_Up_Date_Time, Reservation.Estimated_Cost, Reservation.Return_Status, Car.Model, Car.Location_Name FROM Reservation
+	$getFutureReservations = mysql_query("SELECT Reservation.Username, Reservation.Pick_Up_Date_Time, Reservation.Return_Date_Time, Reservation.Estimated_Cost, Reservation.Return_Status, Car.Model, Car.Location_Name FROM Reservation
 		INNER JOIN Car
 		ON Reservation.Serial_Number = Car.Serial_Number
 		WHERE Reservation.Username = '$user' AND Reservation.Return_Date_Time > CURDATE()");
@@ -63,23 +63,13 @@
 		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Location_Name'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Estimated_Cost'].'</font></td>';
-		echo '<td> <input type="radio" name="car" value="'.$temp['Serial_Number'].'"></td>';
+		echo '<td> <input type="radio" name="resPKey" value="'.$temp['Username'].$temp['Pick_Up_Date_Time'].$temp['Return_Date_Time'].'"></td>';
 		echo '</tr>';
 	}
 	?>
 </table>
 
 
-
-
-
-
-
-
-
-
-
-<form method="post">
 	Chose a return time (YYYY-MM-DD HH:MM:SS format):
 	<input type="text" name="return"><br>
 	<input type="submit" value="Update">
