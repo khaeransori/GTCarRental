@@ -35,11 +35,7 @@
 <form action="addCar.php" method="post">
 Vehicle Sno: <input type="text" name="serialNumber"><br>
 Car Model: <input type="text" name="carModel"><br>
-Car Type:
-<select name="carType">
-<option value="hybrid">Hybrid</option>
-<option value="gasoline">Gasoline</option>
-</select><br>
+Car Type:<input type="text" name="carType"><br>
 
 Location:
 <br>
@@ -84,9 +80,9 @@ Auxilary Cable:
 
 <hr>
 
-<p><b>Change Car Location </b></p> 
+<p><b>Change Car </b></p> 
 
-<form>
+<form action="changeCarLoc.php" method="post">
 
 Choose current location:
 <select name = "currentLocation">
@@ -98,34 +94,7 @@ while ($temp2 = mysql_fetch_assoc($getLocations)) {
 ?>
 </select><br>
 
-Choose car:
-<select name="chooseCar">
-<option value="civic">Honda Accord</option>
-<option value="camery">Toyota Camery</option>
-</select><br>
-</form>
-
-<p><b>Brief Description </b></p>
-
-<form>
-Car Type: <input type="text" name="carDescType"><br>
-Color: <input type="text" name="carDescColor"><br>
-Seating Capacity: <input type="text" name="seatingDescCap"><br>
-
-Transmission Type:
-<select name="transDescType">
-<option value="manual">Manual</option>
-<option value="auto">Automatic</option>
-</select><br>
-
-Choose new location:
-<select name="chooseNewLocation">
-<option value="howey">Howey</option>
-<option value="klaus">Klaus</option>
-</select><br>
-
-<input type="submit" value="Submit Changes">
-
+<input type="submit" value="Continue">
 </form>
 </html>
 
