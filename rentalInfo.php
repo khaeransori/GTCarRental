@@ -32,18 +32,10 @@
 
 <p><b>Current Reservations </b></p> 
 
-Choose a return time:
-<select name="returnDate">
-<option value="jan1">1/1/2013</option>
-<option value="jan2">1/2/2013</option>
-</select>
-<select name="returnTime">
-<option value="900">9:00 AM</option>
-<option value="930">9:30 AM</option>
-</select><br>
-
-<form>
-<input type="submit" value="Update">
+<form method="post">
+	Chose a return time (YYYY-MM-DD HH:MM:SS format):
+	<input type="text" name="return"><br>
+	<input type="submit" value="Update">
 </form>
 
 <hr>
