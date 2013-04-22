@@ -31,7 +31,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 
 <!-- ************************************************************* -->  
 
-<form>
+<form action="rentalInfo.php" method = "POST">
 
 <table border = "1">
 	<tr>
