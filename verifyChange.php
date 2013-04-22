@@ -20,9 +20,20 @@ session_start();
 	//Update table
     $sqlUpdate = mysql_query("UPDATE Reservation 
 	SET Return_Date_Time = '$newReturn'
-	WHERE Username = '$username' AND Return_Date_Time = '$origReturn' AND Location = '$location'");
+	WHERE Username = '$username' AND Return_Date_Time = '$origReturn' 
+	AND Serial_Number = '$carModel' AND Location = '$location'");
+	
+	//find others affected
+	$sqlAffected = mysql_query("Select * From Reservation 
+	WHERE Pick_Up_Date_Time <= '$newReturn' AND 
+	Serial_Number = '$carModel' AND Username <>'$username';");
+	$_SESSION['affect'] = mysql_fetch_array($sqlAffected);
 
-	header('Location: employeeHome.php');
-
+	if(mysql_num_rows($sqlAffected) >= 1){ 
+		header('Location: affectedUser.php');
+	}
+	else{
+		header('Location: employeeHome.php');
+	}
 
 ?>
