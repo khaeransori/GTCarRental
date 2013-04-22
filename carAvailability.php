@@ -9,6 +9,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
  $db = mysql_connect($dbHost,$dbUser,$dbPass)or die("Error connecting to database."); 
  //Connect to the databasse 
  mysql_select_db($dbDatabase, $db)or die("Couldn't select the database.");   
+
 ?>
 
 <html>
@@ -50,39 +51,27 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 <th><font color="#ffffff">Available Until</font></th>
 <th><font color="#ffffff">Estimated Cost</font></th>
 </tr>
-<tr>
-<td><font color="#ffffff"><?php $_POST['pickup'] ?></font></td>
-<td><font color="#ffffff"><?php $_POST['return']?></font></td>
-<td><font color="#ffffff"><?php $_POST['carModel']?></font></td>
-<td><font color="#ffffff"><?php $_POST['carType']?></font></td>
-<td><font color="#ffffff"><?php $_POST['location']?></font></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 	<?php
+	$loc = $_POST['location'];
+	$model = $_POST['carModel'];
+	$type = $_POST['carType'];
+	$pickup = $_POST['pickup'];
+	$return = $_POST['return'];
 	//IMPORTANT CODE
 	//Lists the locations from the SQL table in the option list
 	$getCars = mysql_query("SELECT * 
 		FROM Car AS c 
 		WHERE (
-		c.Location_Name ='". $_POST['location'] ."' AND 
-		((c.Type =". $_POST['carType'] .") OR (c.Model = '". $_POST['carModel']."')) AND 
+		c.Location_Name ='". $loc ."' AND 
+		((c.Type ='".$type ."') OR (c.Model = '". $model ."')) AND 
 		c.Under_Maintenence_Flag = 0 AND
 		NOT EXISTS ( 
 			SELECT Serial_Number
 			FROM Reservation AS r 
 			WHERE(
-			(r.Pick_Up_Date_Time >='". $_POST['pickup']."' AND r.Pick_Up_Date_Time<'". $_POST['return']."') OR 
-			(r.Return_Date_Time >'". $_POST['pickup']."' AND r.Return_Date_Time<='". $_POST['return']."') OR 
-			(r.Pick_Up_Date_Time <='". $_POST['pickup']."' AND r.Return_Date_Time>='". $_POST['return']."')
+			(r.Pick_Up_Date_Time >='". $pickup."' AND r.Pick_Up_Date_Time<'". $return."') OR 
+			(r.Return_Date_Time >'".$pickup."' AND r.Return_Date_Time<='". $return."') OR 
+			(r.Pick_Up_Date_Time <='".$pickup."' AND r.Return_Date_Time>='". $return."')
 		)
 		)
 		)");
