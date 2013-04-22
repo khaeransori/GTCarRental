@@ -13,5 +13,18 @@ else if($_GET['homeSelection'] == 'maintenanceReq'){
 else if($_GET['homeSelection'] == 'rentalChangeReq'){
 	header('Location: rentalChangeReq.php');
 }
+else if($_GET['homeSelection'] == 'viewReports'){
+	if($_GET['reportType'] == 'locPrefReport')
+		header('Location: locationPreferenceReport.php');
+	else if($_GET['reportType'] == 'adminReport')
+		header('Location: administrativeReport.php');
+	else if($_GET['reportType'] == 'maintReport')
+		header('Location: maintenanceHistoryReport.php');
+	else if($_GET['reportType'] == 'freqUsersReport')
+		header('Location: frequentUsersReport.php');
+}
+else
+	header('Location: employeeHome.php');
+
 ?>
 

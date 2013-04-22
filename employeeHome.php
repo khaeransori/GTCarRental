@@ -31,6 +31,9 @@
 
 <select name="reportType">
 <option value="locPrefReport">Location Preference Report</option>
+<option value="adminReport">Administrative Report</option>
+<option value="maintReport">Maintenance History Report</option>
+<option value="freqUsersReport">Frequent Users Report</option>
 </select><br>
 
 <input type="submit" value="Next >>">
