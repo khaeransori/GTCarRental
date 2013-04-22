@@ -10,10 +10,13 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
  //Connect to the databasse 
  mysql_select_db($dbDatabase, $db)or die("Couldn't select the database.");   
 
-$serial = $_POST["cars"];
+$estCost = substr($_POST["cars"],strpos($_POST["cars"],"^^"));
+$serial = substr($_POST["cars"],0,strpos($_POST["cars"],"^^"));
 $pickup = $_POST["pickup"];
 $return = $_POST["return"];
+$user = $_SESSION['username'];
 
-mysql_query("INSERT INTO Reservation
-VALUES (Username = '".$_Session["username"]."',Pick_Up_Date_Time= '".$pickup."', Return_Date_Time = '".$return."', Late_Fees = 0, Return_Status = '0', Late_By = '0', Estimated_Cost = '8', Serial_Number = '".$serial."', Location_Name = 'Klaus');
+mysql_query("INSERT INTO Reservation (Username, Pick_Up_Date_Time, Return_Date_Time, Late_Fees, Return_Status, Late_By, Estimated_Cost, Serial_Number, Location_Name) Values ('$user','$pickup','$return','0','0','LateByDate','$estCost','$serial','Loc')");
+
+header('Location: rentalInfo.php');
 ?>

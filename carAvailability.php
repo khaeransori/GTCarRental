@@ -65,7 +65,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		c.Location_Name ='". $loc ."' AND 
 		((c.Type ='".$type ."') OR (c.Model = '". $model ."')) AND 
 		c.Under_Maintenence_Flag = 0 AND
-		EXISTS ( 
+		NOT EXISTS ( 
 			SELECT Serial_Number
 			FROM Reservation AS r 
 			WHERE(
@@ -80,7 +80,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 
 	
 	while ($temp = mysql_fetch_assoc($getCars)) {
-		if ($temp["Under_Maintenence_Flag"]=="0"){
+		
 		$availableUntil = mysql_result(mysql_query("SELECT Pick_Up_Date_Time FROM Reservation Where Serial_Number = '".$temp['Serial_Number']."' AND Pick_Up_Date_Time>'".$pickup."' Order By (Pick_Up_Date_Time) ASC"),"No Future Reservations Made");
 
 		$date1 = $pickup;
@@ -99,7 +99,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		}
 
 		echo '<tr>';
-		echo '<td> <input type="radio" name="cars" value="'.$temp['Serial_Number'].'"></td>';
+		echo '<td> <input type="radio" name="cars" value="'.$temp['Serial_Number'].'^^'.$estCost.'"></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Type'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Location_Name'].'</font></td>';
@@ -113,9 +113,9 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		echo '<td> <font color="#ffffff">'.$temp['Bluetooth'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Aux_Cable'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$availableUntil.'</font></td>';
-		echo '<td> <font color="#ffffff">$'.$estCost.'</font></td>';
+		echo '<td> <font color="#ffffff">$'.number_format($estCost,2).'</font></td>';
 		echo '</tr>';
-		}
+		
 	}
 	?>
 	</table>
