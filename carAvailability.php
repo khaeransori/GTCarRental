@@ -50,7 +50,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		echo '</tr>';
 	}
 	?>
-	</select>
+	</table>
 
 <input type="submit" value="Reserve">
 </form>
