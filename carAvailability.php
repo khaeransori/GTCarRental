@@ -51,11 +51,11 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 <th><font color="#ffffff">Estimated Cost</font></th>
 </tr>
 <tr>
-<td><font color="#ffffff">$_POST['pickup']</font></td>
-<td><font color="#ffffff">$_POST['return']</font></td>
-<td><font color="#ffffff">$_POST['carModel']</font></td>
-<td><font color="#ffffff">$_POST['carType']</font></td>
-<td><font color="#ffffff">$_POST['location']</font></td>
+<td><font color="#ffffff"><?php $_POST['pickup'] ?></font></td>
+<td><font color="#ffffff"><?php $_POST['return']?></font></td>
+<td><font color="#ffffff"><?php $_POST['carModel']?></font></td>
+<td><font color="#ffffff"><?php $_POST['carType']?></font></td>
+<td><font color="#ffffff"><?php $_POST['location']?></font></td>
 <td></td>
 <td></td>
 <td></td>
@@ -95,7 +95,7 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		echo '<td> <font color="#ffffff">'.$temp['Location_Name'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Color'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Hourly_Rate'].'</td>';
-		echo '<td> <font color="#ffffff">THIS NEEDS TO BE THE FREQUENT RATE!!!!!!!!!</font></td>';
+		echo '<td> <font color="#ffffff"> FREQUENT </font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Daily_Rate'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Capacity'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Transmission_Type'].'</font></td>';
