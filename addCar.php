@@ -33,7 +33,7 @@ if($_POST['auxCable'] == 'yesAux')
 else
 	$AUX_Cable = 0;
 
-//TODO: Don't add a car if capacity is full
+//Don't add a car if capacity is full
 $countQuery = mysql_query("SELECT COUNT(*) AS Count FROM Car WHERE Location_Name = '$Location_Name';");
 $row = mysql_fetch_array($countQuery);
 $carCount = $row['Count'];
@@ -41,11 +41,22 @@ $capacityQ = mysql_query("SELECT Capacity FROM Location WHERE Location_Name = '$
 $row2 = mysql_fetch_array($capacityQ);
 $capacity = $row2['Capacity'];
 
+//Don't add car if same model exists at location
+$modelQuery = mysql_query("SELECT Model FROM Car WHERE Location_Name = '$Location_Name' AND Model = '$Model';");
+
 if($carCount < $capacity){
-	mysql_query("INSERT INTO Car
-	VALUES('$Serial_Number', '$AUX_Cable', 0, '$Model', '$Type', '$Color', '$Hourly_Rate', 
-	'$Daily_Rate', '$Bluetooth', '$Capacity', '$Transmission_Type', '$Location_Name')
-	");
+	if(mysql_num_rows($modelQuery) == 0){
+		mysql_query("INSERT INTO Car
+		VALUES('$Serial_Number', '$AUX_Cable', 0, '$Model', '$Type', '$Color', '$Hourly_Rate', 
+		'$Daily_Rate', '$Bluetooth', '$Capacity', '$Transmission_Type', '$Location_Name')
+		");
+	}
+	else{
+		echo "<script type='text/javascript'>alert('Model already exists at location!');</script>";
+	}
+}
+else{
+	echo "<script type='text/javascript'>alert('Location Reached Capacity!');</script>";
 }
 
 header('Location: employeeHome.php');
