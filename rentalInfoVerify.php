@@ -12,7 +12,7 @@
  mysql_select_db($dbDatabase, $db)or die("Couldn't select the database."); 
  //Selects the database 
 //Take personal info and set it up into the database
-
+if(isset($_POST['update'])&& $_POST['return']!=""){
 $returnTime = $_POST['return'];
 $oldReturnTime = mysql_query("SELECT Return_Date_Time FROM Reservation
 	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
@@ -51,4 +51,9 @@ if ($checkUser == FALSE) { //CHECK TEST CHECK
 }
 
 header('Location: home.php');
+}
+else
+{
+	header('Location: home.php');
+}
 ?>
