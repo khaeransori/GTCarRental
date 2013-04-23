@@ -32,13 +32,13 @@ $checkUser = mysql_result(mysql_query("SELECT Username
 		)
 		)"),0);
 if ($checkUser== FALSE){
-	echo "<script type='text/javascript'>alert('Reservation Confirmed!');</script>";
+	$_SESSION['rentingSuccess'] = 1;
 	mysql_query("INSERT INTO Reservation (Username, Pick_Up_Date_Time, Return_Date_Time, Late_Fees, Return_Status, Late_By, Estimated_Cost, Serial_Number, 	Location_Name) Values ('$user','$pickup','$return','0','0','0','$estCost','$serial','$loc')");
 
 	header('Location: rentalInfo.php');
 }
 else{
-	echo "<script type='text/javascript'>alert('You already have a reservation during that time, dummy!');</script>";
+	$_SESSION['rentingSuccess'] = -1;
 	header('Location: rentACar.php');
 }
 

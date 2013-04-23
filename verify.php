@@ -22,6 +22,7 @@ if(isset($_POST['submit'])){
     if(mysql_num_rows($sql) == 1){ 
         $row = mysql_fetch_array($sql);
         $_SESSION['username'] = $row['Username'];
+	$_SESSION['rentingSuccess'] = 0;
     }else{ 
         header('Location: index.php'); 
         exit;

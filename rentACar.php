@@ -28,15 +28,19 @@
 
 <!-- ************************************************************* -->  
 
-<?php
 
-
- ?>
 
 
 <!-- ************************************************************* -->       
 
 <form action="carAvailability.php" method="post">
+	<?php
+	if ($_SESSION['rentingSuccess'] == -1){
+		echo "Reservation Failed. You already have a car reserved at that time."
+		$_SESSION['rentingSuccess'] == 0;
+	}
+
+ 	?>
 	Pick up date & time (YYYY-MM-DD HH:MM:SS format):
 	<input type="text" name="pickup"><br>
 
