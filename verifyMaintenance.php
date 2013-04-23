@@ -20,6 +20,8 @@ $Problem = $_POST['description'];
 mysql_query("INSERT INTO Maintenence_Request VALUES ('$Sno', '$DTime', '$Username');
 ");
 
+mysql_query("UPDATE Car SET Under_Maintenence_Flag = 1 WHERE Serial_Number = '$Sno';");
+
 mysql_query("INSERT INTO Problem VALUES ('$Problem', '$Sno', '$DTime');
 ");
 
