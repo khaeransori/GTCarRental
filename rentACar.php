@@ -39,7 +39,7 @@
 		echo "Reservation Failed. You already have a car reserved at that time.<br><br>";
 		$_SESSION['rentingSuccess'] = 0;
 	}
-if ($_SESSION['rentingSuccess'] == 36){
+	if ($_SESSION['rentingSuccess'] == 36){
 		echo "Reservation Failed. You cannot reserve a car for more than two days.<br><br>";
 		$_SESSION['rentingSuccess'] = 0;
 	}
