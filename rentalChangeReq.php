@@ -27,7 +27,7 @@
 
 <p><b>Rental Change Request </b></p>        
 
-<form action="verifyChange.php" method="post">
+<form action="rentalChangeReq1.php" method="post">
 	Enter username: 
 	<select name="username">
 		<?php
@@ -36,47 +36,10 @@
 		while ($temp = mysql_fetch_assoc($getModel)) {
 			echo "<option value='".$temp['Username']."'>".$temp['Username']."</option>";
 		}
-		
-	echo '</select>
-	<br>
-	<p><b>Rental Information </b></p> 
-
-	Car Model:
-	<select name="model">';
-
-		//Lists the locations from the SQL table in the option list
-		$getModel = mysql_query("Select DISTINCT Model FROM Car Join Reservation  
-		on Car.Serial_Number= Reservation.Serial_Number");
-		while ($temp = mysql_fetch_assoc($getModel)) {
-			echo "<option value='".$temp['Model']."'>".$temp['Model']."</option>";
-		}
-		
-	echo '</select><br>
-	Select Location:
-	<select name="location">';
-
-		//Lists the locations from the SQL table in the option list
-		$getLocations = mysql_query("SELECT DISTINCT Location_Name FROM Reservation");
-		while ($temp = mysql_fetch_assoc($getLocations)) {
-			echo "<option value='".$temp['Location_Name']."'>".$temp['Location_Name']."</option>";
-		}
-		
-	echo '</select><br>
-
-	Original return date & time (YYYY-MM-DD HH:MM:SS format):
-	<select name="original">';
-
-		//Lists the locations from the SQL table in the option list
-		$getModel = mysql_query("SELECT Return_Date_Time FROM Reservation WHERE Username = username");
-		while ($temp = mysql_fetch_assoc($getModel)) {
-			echo "<option value='".$temp['Return_Date_Time']."'>".$temp['Return_Date_Time']."</option>";
-		}
 		?>
-	</select><br>
+		
+	</select>
 
-	New return date & time (YYYY-MM-DD HH:MM:SS format):
-	<input type="text" name="new"><br>
-
-	<input type="submit" value="Update">
+	<input type="submit" value="Next">
 </form>
 

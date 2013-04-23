@@ -23,7 +23,7 @@
 </head>
 <body>
 
-<p><b>Car Availability </b></p>        
+<p><b>Employee Home </b></p>        
 
 
 <!-- ************************************************************* -->  
@@ -32,6 +32,10 @@
 <!-- ************************************************************* -->  
 
 <form action="verifyEmployeeHome.php" method="get">
+<input type="radio" name="homeSelection" value="manageCars">Manage Cars<br>
+<input type="radio" name="homeSelection" value="maintenanceReq">Maintenance requests<br>
+<input type="radio" name="homeSelection" value="rentalChangeReq">Rental change request<br>
+<input type="radio" name="homeSelection" value="viewReports">View Reports
 
 <select name="reportType">
 <option value="locPrefReport">Location Preference Report</option>
