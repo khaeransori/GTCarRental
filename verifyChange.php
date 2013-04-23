@@ -15,18 +15,16 @@ session_start();
 	$newReturn = $_POST['return'];
 	$lateby = (strtotime($newReturn) - strtotime($origReturn)) /3600;
 	$latefee = 50 * $lateby; 
-	//Update table
+
 	$sqlSerial = mysql_fetch_array(mysql_query("Select Reservation.Serial_Number 
 	From Reservation Join Car 
 	on Reservation.Serial_Number = Car.Serial_Number
-	WHERE Username = '$username' AND  Return_Date_Time = '$origReturn' 
-	AND Reservation.Location_Name = '$location';"));
+	WHERE Username = '$username' AND  Return_Date_Time = '$origReturn';"));
 	$serialNum = $sqlSerial['Serial_Number'];
-    
+	//Update table    
     $sqlUpdate = mysql_query("UPDATE Reservation
 	SET Return_Date_Time = '$newReturn', Late_Fees = '$latefee', Late_By='$lateby'
-	WHERE Username = '$username' AND Return_Date_Time = '$origReturn' 
-	AND Location_Name = '$location';");
+	WHERE Username = '$username' AND Return_Date_Time = '$origReturn';");
 	
 	
 	
