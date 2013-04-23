@@ -92,8 +92,6 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 		if ($availableUntil == FALSE){
 			$availableUntil = "N/A";
 		}
-
-
 		$date1 = $pickup;
 		$date2 = $return;
 
