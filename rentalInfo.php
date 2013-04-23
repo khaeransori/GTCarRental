@@ -23,14 +23,20 @@
 </head>
 <body>
 
-<p><b>Rental Information </b></p>        
+<p><b>Rental Information </b></p>    
+
+
 
 
 <!-- ************************************************************* -->  
 
 <?php
 
-
+if ($_SESSION['rentingSuccess'] == 1) {
+	echo "Reservation Successful<br>";
+	$_SESSION['rentingSuccess'] = 0;
+}
+	   
  ?>
 
 

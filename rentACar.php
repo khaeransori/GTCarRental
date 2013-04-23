@@ -82,6 +82,10 @@
 		?>
 	</select><br>
 
+	IF FALSE -> there is no overlap, perform task
+
+
+
 	
 	<input type="radio" name="searchSelection" value="searchByType">Search By Type
 	<input type="radio" name="searchSelection" value="searchByModel" checked>Search By Model<br>
