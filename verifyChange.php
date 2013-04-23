@@ -9,11 +9,9 @@ session_start();
     //Connect to the databasse 
     mysql_select_db($dbDatabase, $db)or die("Couldn't select the database."); 
     //Selects the database 
-    $info = $_POST['resPKey'];
-	$username = $info[0];
-    $carModel = $info[3];
-    $location = $info[4];
-	$origReturn= $info[2];
+    
+	$username = $_SESSION['userChange'];
+	$origReturn= $_POST['resPKey'];
 	$newReturn = $_POST['return'];
 	$lateby = (strtotime($newReturn) - strtotime($origReturn)) /3600;
 	$latefee = 50 * $lateby; 
