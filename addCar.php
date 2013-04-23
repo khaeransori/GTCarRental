@@ -51,12 +51,6 @@ if($carCount < $capacity){
 		'$Daily_Rate', '$Bluetooth', '$Capacity', '$Transmission_Type', '$Location_Name')
 		");
 	}
-	else{
-		echo "<script type='text/javascript'>alert('Model already exists at location!');</script>";
-	}
-}
-else{
-	echo "<script type='text/javascript'>alert('Location Reached Capacity!');</script>";
 }
 
 header('Location: employeeHome.php');
