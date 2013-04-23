@@ -78,7 +78,8 @@ if ($_SESSION['rentingSuccess'] == 1) {
 
 	Chose a return time (YYYY-MM-DD HH:MM:SS format):
 	<input type="text" name="return"><br>
-	<input type="submit" value="Update">
+	<input type="submit" value="Update" name = "update">
+	<input type = "submit" value = "Home" name = "home">
 </form>
 
 <hr>
@@ -115,7 +116,7 @@ if ($_SESSION['rentingSuccess'] == 1) {
 	?>
 </table>
 <br>
-<a href="home.php">Home</a>
+
 
 
 
