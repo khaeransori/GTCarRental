@@ -33,13 +33,25 @@ if($_POST['auxCable'] == 'yesAux')
 else
 	$AUX_Cable = 0;
 
-//TODO: Don't add a car if capacity is full
-//$checkCapacity = mysql_query("SELECT Capacity FROM Location WHERE (Location = '$Location_Name')");
+//Don't add a car if capacity is full
+$countQuery = mysql_query("SELECT COUNT(*) AS Count FROM Car WHERE Location_Name = '$Location_Name';");
+$row = mysql_fetch_array($countQuery);
+$carCount = $row['Count'];
+$capacityQ = mysql_query("SELECT Capacity FROM Location WHERE Location_Name = '$Location_Name';");
+$row2 = mysql_fetch_array($capacityQ);
+$capacity = $row2['Capacity'];
 
-mysql_query("INSERT INTO Car
-VALUES('$Serial_Number', '$AUX_Cable', 0, '$Model', '$Type', '$Color', '$Hourly_Rate', 
-'$Daily_Rate', '$Bluetooth', '$Capacity', '$Transmission_Type', '$Location_Name')
-");
+//Don't add car if same model exists at location
+$modelQuery = mysql_query("SELECT Model FROM Car WHERE Location_Name = '$Location_Name' AND Model = '$Model';");
+
+if($carCount < $capacity){
+	if(mysql_num_rows($modelQuery) == 0){
+		mysql_query("INSERT INTO Car
+		VALUES('$Serial_Number', '$AUX_Cable', 0, '$Model', '$Type', '$Color', '$Hourly_Rate', 
+		'$Daily_Rate', '$Bluetooth', '$Capacity', '$Transmission_Type', '$Location_Name')
+		");
+	}
+}
 
 header('Location: employeeHome.php');
 ?>

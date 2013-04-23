@@ -56,8 +56,5 @@
             ?>
         </tbody>
 </table>
-<form action = "employeeHome.php">
-<input type="submit" value="Back">
-</form>
 </body>
 </html>

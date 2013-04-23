@@ -70,6 +70,7 @@ else
 <input type="radio" name="planSelect" value="frequentDriving" <?php echo $checkFD?>>Frequent Driving
 <input type="radio" name="planSelect" value="dailyDriving" <?php echo $checkDD?>>Daily Driving<br>
 
+<input type="submit" name="planDetail" value="View Plan Details">
 <hr>
 
 <p><b>Payment Information </b></p> 

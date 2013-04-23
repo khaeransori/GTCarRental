@@ -13,7 +13,7 @@
  
 <html>
 <head>
-<title>GT Car Rental: Employee Home  </title>
+<title>GT Car Rental: Admin Home   </title>
 
 <body bgcolor="#000000">
 <center>
@@ -22,22 +22,18 @@
 
 </head>
 <body>
+Reports
 
-<p><b>Car Availability </b></p>        
+<br><br>
 
-
-<!-- ************************************************************* -->  
-
-
-<!-- ************************************************************* -->  
-
-<form action="verifyEmployeeHome.php" method="get">
-
+<form action="verifyAdminHome.php" method="get">
 <select name="reportType">
+<option value="adminReport">Administrative Report</option>
 <option value="locPrefReport">Location Preference Report</option>
 <option value="maintReport">Maintenance History Report</option>
 <option value="freqUsersReport">Frequent Users Report</option>
 </select><br>
-
 <input type="submit" value="Next >>">
 </form>
+</body>
+</html>

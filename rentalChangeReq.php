@@ -2,8 +2,8 @@
 //retrieve session data
   session_start();
 //echo "Manager SSN is  ". $_SESSION['manager'] . "<br />";
- $mgrssn = $_SESSION['manager'];  
-  $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
+	$mgrssn = $_SESSION['manager'];  
+	$dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
     $dbUser = "cs4400_Group_59";            //Database User Name 
     $dbPass = "sg44Hlvd";            //Database Password 
     $dbDatabase = "cs4400_Group_59";    //Database Name 
@@ -45,7 +45,8 @@
 	<select name="model">';
 
 		//Lists the locations from the SQL table in the option list
-		$getModel = mysql_query("SELECT DISTINCT Model, Serial_Number FROM Car");
+		$getModel = mysql_query("Select DISTINCT Model FROM Car Join Reservation  
+		on Car.Serial_Number= Reservation.Serial_Number");
 		while ($temp = mysql_fetch_assoc($getModel)) {
 			echo "<option value='".$temp['Model']."'>".$temp['Model']."</option>";
 		}
@@ -55,7 +56,7 @@
 	<select name="location">';
 
 		//Lists the locations from the SQL table in the option list
-		$getLocations = mysql_query("SELECT Location_Name FROM Location");
+		$getLocations = mysql_query("SELECT DISTINCT Location_Name FROM Reservation");
 		while ($temp = mysql_fetch_assoc($getLocations)) {
 			echo "<option value='".$temp['Location_Name']."'>".$temp['Location_Name']."</option>";
 		}
@@ -75,40 +76,7 @@
 
 	New return date & time (YYYY-MM-DD HH:MM:SS format):
 	<input type="text" name="new"><br>
-	
 
 	<input type="submit" value="Update">
 </form>
 
-<p><b>User Affected </b></p> 
-
-<form>
-	Username: <input type="text" name="userAffectedUsername"><br>
-
-	Original pick up time:
-	<select name="returnTimeStartDate">
-	<option value="117">1/17/2013</option>
-	<option value="118">1/18/2013</option>
-	</select>
-
-	<select name="returnTimeStartTime">
-	<option value="1200">12:00PM</option>
-	<option value="1230">12:30PM</option>
-	</select><br>
-
-	Original return time:
-	<select name="returnTimeStartDate">
-	<option value="117">1/17/2013</option>
-	<option value="118">1/18/2013</option>
-	</select>
-
-	<select name="returnTimeStartTime">
-	<option value="1200">12:00PM</option>
-	<option value="1230">12:30PM</option>
-	</select><br>
-
-	Email Address: <input type="text" name="email"><br>
-	Phone Number: <input type="text" name="phoneNumber"><br>
-	<input type="submit" value="Cancel Reservation">
-	<input type="submit" value="Show car availability">
-</form>

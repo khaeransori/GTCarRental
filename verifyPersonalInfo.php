@@ -1,5 +1,9 @@
 <?php
  session_start(); 
+ if(isset($_POST['planDetail'])){
+	 header('Location: planDetails.php');
+	 exit;
+ }
  $username = $_SESSION['username'];
 
  $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually its localhost 
