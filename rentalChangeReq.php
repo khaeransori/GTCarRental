@@ -45,10 +45,10 @@
 	<select name="model">';
 
 		//Lists the locations from the SQL table in the option list
-		$getModel = mysql_query("Select Model FROM Car Join Reservation  
+		$getModel = mysql_query("Select DISTINCT Model FROM Car Join Reservation  
 		on Car.Serial_Number= Reservation.Serial_Number");
 		while ($temp = mysql_fetch_assoc($getModel)) {
-			echo "<option value='".$temp['Serial_Number']."'>".$temp['Serial_Number']."</option>";
+			echo "<option value='".$temp['Model']."'>".$temp['Model']."</option>";
 		}
 		
 	echo '</select><br>
@@ -56,7 +56,7 @@
 	<select name="location">';
 
 		//Lists the locations from the SQL table in the option list
-		$getLocations = mysql_query("SELECT Location_Name FROM Location");
+		$getLocations = mysql_query("SELECT Location_Name FROM Reservation");
 		while ($temp = mysql_fetch_assoc($getLocations)) {
 			echo "<option value='".$temp['Location_Name']."'>".$temp['Location_Name']."</option>";
 		}
