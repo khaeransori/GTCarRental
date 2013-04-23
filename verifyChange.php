@@ -16,18 +16,20 @@ session_start();
 	$lateby = (strtotime($newReturn) - strtotime($origReturn)) /3600;
 	$latefee = 50 * $lateby; 
 
-	$sqlSerial = mysql_fetch_array(mysql_query("Select Reservation.Serial_Number 
+	$sqlSerial = mysql_fetch_array(mysql_query("Select Reservation.Serial_Number, Reservation.Pick_Up_Date_Time 
 	From Reservation Join Car 
 	on Reservation.Serial_Number = Car.Serial_Number
 	WHERE Username = '$username' AND  Return_Date_Time = '$origReturn';"));
 	$serialNum = $sqlSerial['Serial_Number'];
+	$pickup = $sqlSerial['Pick_Up_Date_Time'];
 	//Update table    
     $sqlUpdate = mysql_query("UPDATE Reservation
-	SET Return_Date_Time = '$newReturn', Late_Fees = '$latefee', Late_By='lateby'
+	SET Return_Date_Time = '$newReturn', Late_Fees = '$latefee', Late_By='$lateby'
 	WHERE Username = '$username' AND Return_Date_Time = '$origReturn';");
 	
 	//Enter Into Extension Table
-	mysql_query("INSERT INTO Extension VALUES ('$lateby')");
+	if($lateby > 0)
+		mysql_query("INSERT INTO Extended_Time VALUES ('$lateby', '$username', '$pickup', '$newReturn');");
 	
 	
 	//find others affected
