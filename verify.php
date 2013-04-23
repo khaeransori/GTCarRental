@@ -30,6 +30,7 @@ if(isset($_POST['submit'])){
     //Check to see if user is an employee or just a member
     $memberCheck = mysql_query("SELECT * FROM Member WHERE (Username = '$user')");
     $employeeCheck = mysql_query("SELECT * FROM Employee WHERE (Username = '$user')");
+    $adminCheck = mysql_query("SELECT * FROM Administrator WHERE (Username = '$user')");
     if(mysql_num_rows($memberCheck) == 1){
 		header('Location: home.php');
 	}
@@ -37,7 +38,7 @@ if(isset($_POST['submit'])){
 		header('Location: employeeHome.php');
 	}
 	else if(mysql_num_rows($adminCheck) == 1){
-		header('Location: employeeHome.php');
+		header('Location: adminHome.php');
 	}
 	else
 		header('Location: index.php');
