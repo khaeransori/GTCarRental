@@ -32,7 +32,7 @@
 <form action="verifyChange.php" method="post">
 <table border = "1">
 	<tr>
-		<th><font color="#ffffff">Reservation Date/Time</font></th>
+		<th><font color="#ffffff">Expected Return Date/Time</font></th>
 		<th><font color="#ffffff">Car</font></th>
 		<th><font color="#ffffff">Location</font></th>
 		<th><font color="#ffffff">Amount</font></th>
@@ -51,11 +51,13 @@
 
 	while ($temp = mysql_fetch_assoc($getFutureReservations)) {
 		echo '<tr>';
-		echo '<td> <font color="#ffffff">'.$temp['Pick_Up_Date_Time'].'</font></td>';
+		echo '<td> <font color="#ffffff">'.$temp['Return_Date_Time'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Location_Name'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Estimated_Cost'].'</font></td>';
-		echo '<td> <input type="radio" name="resPKey" value="'.$temp['Return_Date_Time'].')"></td>';
+		
+		//echo "<option value='".$temp['Username']."'>".$temp['Username']."</option>";
+		echo "<td> <input type='radio' name='resPKey' value='".$temp['Return_Date_Time']."'></td>";
 		echo '</tr>';
 	}
 	?>
