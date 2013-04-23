@@ -114,6 +114,8 @@ if ($_SESSION['rentingSuccess'] == 1) {
 	}
 	?>
 </table>
+<br>
+<a href="home.php">Home</a>
 
 
 
