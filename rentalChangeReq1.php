@@ -55,8 +55,7 @@
 		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Location_Name'].'</font></td>';
 		echo '<td> <font color="#ffffff">'.$temp['Estimated_Cost'].'</font></td>';
-		echo '<td> <input type="radio" name="resPKey" value="array('.$temp['Username'].', '.$temp['Pick_Up_Date_Time'].', '.$temp['Return_Date_Time'].',
-		 '.$temp['Model'].', '.$temp['Location_Name'].', '.$temp['Estimated_Cost'].')"></td>';
+		echo '<td> <input type="radio" name="resPKey" value="'.$temp['Pick_Up_Date_Time'].')"></td>';
 		echo '</tr>';
 	}
 	?>
