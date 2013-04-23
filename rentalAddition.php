@@ -17,10 +17,7 @@ $return = $_SESSION['return'];
 $user = $_SESSION['username'];
 $loc = $_SESSION['loc'];
 
-if ((strtotime($return) - strtotime($pickup))/3600 >48){
-	$_SESSION['rentingSuccess'] = 36;
-	header('Location: rentACar.php');
-}
+
 
 $checkUser = mysql_result(mysql_query("SELECT Username 
 		FROM User AS u
@@ -36,7 +33,23 @@ $checkUser = mysql_result(mysql_query("SELECT Username
 		)
 		)
 		)"),0);
+
+
 if ($checkUser== FALSE){
+
+	$date1 = $pickup;
+	$date2 = $return;
+
+	$ts1 = strtotime($date1);
+	$ts2 = strtotime($date2);
+
+	$seconds_diff = $ts2 - $ts1;
+	$hours_diff = $seconds_diff/(60*60);
+	if ( $hours_diff > 48 ){
+		$_SESSION['rentingSuccess'] = 36;
+		header('Location: rentACar.php');
+	}
+
 	$_SESSION['rentingSuccess'] = 1;
 	mysql_query("INSERT INTO Reservation (Username, Pick_Up_Date_Time, Return_Date_Time, Late_Fees, Return_Status, Late_By, Estimated_Cost, Serial_Number, 	Location_Name) Values ('$user','$pickup','$return','0','On Time','0','$estCost','$serial','$loc')");
 
