@@ -75,14 +75,21 @@
 	$_SESSION['loc'] = $loc;
 	$user = $_SESSION['username'];
 
+	$search = $type;
+
+	if ($_POST['searchSelection']=="searchByModel"){
+		$search = $model;
+	}
+
+
 	//IMPORTANT CODE
 	//Lists the locations from the SQL table in the option list
-	if ($_POST['searchSelection']=="searchByModel"){
 	$getCars = mysql_query("SELECT * 
 		FROM Car AS c 
 		WHERE (
 		c.Location_Name ='". $loc ."' AND 
-		(c.Model = '". $model ."') AND 
+		((c.Model = '". $search ."') OR (c.Type = '".$search."'))
+		AND 
 		c.Under_Maintenence_Flag = 0 AND
 		c.Serial_Number NOT IN ( 
 			SELECT Serial_Number
@@ -98,7 +105,8 @@
 		FROM Car AS c 
 		WHERE (
 		c.Location_Name <>'". $loc ."' AND 
-		(c.Model = '". $model ."') AND 
+		((c.Model = '". $search ."') OR (c.Type = '".$search."'))
+		AND 
 		c.Under_Maintenence_Flag = 0 AND
 		c.Serial_Number NOT IN ( 
 			SELECT Serial_Number
@@ -215,150 +223,8 @@
 		echo '<td> <font color="#ffffff">$'.number_format($estCost,2).'</font></td>';
 		echo '</tr>';
 		
-	}
-	}
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	else{
-	$getCars = mysql_query("SELECT * 
-		FROM Car AS c 
-		WHERE (
-		c.Location_Name ='". $loc ."' AND 
-		(c.Type ='".$type ."') AND 
-		c.Under_Maintenence_Flag = 0 AND
-		c.Serial_Number NOT IN ( 
-			SELECT Serial_Number
-			FROM Reservation AS r 
-			WHERE(
-			(r.Pick_Up_Date_Time >='". $pickup."' AND r.Pick_Up_Date_Time<'". $return."') OR 
-			(r.Return_Date_Time >'".$pickup."' AND r.Return_Date_Time<='". $return."') OR 
-			(r.Pick_Up_Date_Time <='".$pickup."' AND r.Return_Date_Time>='". $return."')
-		)
-		)
-		)");
-	$getOtherCars = mysql_query("SELECT * 
-		FROM Car AS c 
-		WHERE (
-		c.Location_Name <>'". $loc ."' AND 
-		(c.Type ='".$type ."') AND 
-		c.Under_Maintenence_Flag = 0 AND
-		c.Serial_Number NOT IN ( 
-			SELECT Serial_Number
-			FROM Reservation AS r 
-			WHERE(
-			(r.Pick_Up_Date_Time >='". $pickup."' AND r.Pick_Up_Date_Time<'". $return."') OR 
-			(r.Return_Date_Time >'".$pickup."' AND r.Return_Date_Time<='". $return."') OR 
-			(r.Pick_Up_Date_Time <='".$pickup."' AND r.Return_Date_Time>='". $return."')
-		)
-		)
-		)");
-	$discountRateFreq = mysql_result(mysql_query("SELECT Discount FROM Driving_Plan WHERE Type ='Frequent'"),0);
-	$discountRateDaily = mysql_result(mysql_query("SELECT Discount FROM Driving_Plan WHERE Type = 'Daily'"),0);
-	$userPlan = mysql_result(mysql_query("Select Plan FROM User WHERE Username = '$user'"));
-	$discountMult = 1.0;
-	if ($userPlan == "Frequent")
-		$discountMult = (100-$discountRateFreq)/100;
-	else if($userPlan == "Daily")
-		$discountMult = (100-$discountRateDaily)/100;
-
-	while ($temp = mysql_fetch_assoc($getCars)) {
-		
-		$availableUntil = mysql_result(mysql_query("SELECT Pick_Up_Date_Time FROM Reservation Where Serial_Number = '".$temp['Serial_Number']."' AND Pick_Up_Date_Time>'".$pickup."' Order By (Pick_Up_Date_Time) ASC"),0);
-
-		if ($availableUntil == FALSE){
-			$availableUntil = "N/A";
-		}
 	
-		if ((strtotime($availableUntil)-strtotime($return))/3600>12){
-			$availableUntil = "N/A";
-		}
-
-		$date1 = $pickup;
-		$date2 = $return;
-
-		$ts1 = strtotime($date1);
-		$ts2 = strtotime($date2);
-
-		$seconds_diff = $ts2 - $ts1;
-
-		$hours_diff = $seconds_diff/(60*60);
-		$estCost = $hours_diff * $temp['Hourly_Rate'];
-		if($hours_diff>=24){
-			$days = $hours_diff/24;
-			$estCost = $days * $temp['Daily_Rate'];
-		}
-		else{
-			$estCost = $estCost*$discountMult;
-		}
-
-		echo '<tr bgcolor="#008000">';
-		echo '<td> <input type="radio" name="cars" value="'.$temp['Serial_Number'].'^^'.$estCost.'"></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Type'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Location_Name'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Color'].'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format($temp['Hourly_Rate'],2).'</td>';
-		echo '<td> <font color="#ffffff">$'.number_format((((100 - $discountRateFreq)/100)*$temp['Hourly_Rate']),2) .'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format((((100 - $discountRateDaily)/100)*$temp['Hourly_Rate']),2) .'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format($temp['Daily_Rate'],2).'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Capacity'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Transmission_Type'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Bluetooth'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Aux_Cable'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$availableUntil.'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format($estCost,2).'</font></td>';
-		echo '</tr>';
-		
 	}
-
-	while ($temp = mysql_fetch_assoc($getOtherCars)) {
-		
-		$availableUntil = mysql_result(mysql_query("SELECT Pick_Up_Date_Time FROM Reservation Where Serial_Number = '".$temp['Serial_Number']."' AND Pick_Up_Date_Time>'".$pickup."' Order By (Pick_Up_Date_Time) ASC"),0);
-
-		if ($availableUntil == FALSE){
-			$availableUntil = "N/A";
-		}
-		if ((strtotime($availableUntil)-strtotime($return))/3600>12){
-			$availableUntil = "N/A";
-		}
-		$date1 = $pickup;
-		$date2 = $return;
-
-		$ts1 = strtotime($date1);
-		$ts2 = strtotime($date2);
-
-		$seconds_diff = $ts2 - $ts1;
-
-		$hours_diff = $seconds_diff/(60*60);
-		$estCost = $hours_diff * $temp['Hourly_Rate'];
-		
-		if($hours_diff>=24){
-			$days = $hours_diff/24;
-			$estCost = $days * $temp['Daily_Rate'];
-		}
-		else{
-			$estCost = $estCost*$discountMult;
-		}
-		echo '<tr>';
-		echo '<td> <input type="radio" name="cars" value="'.$temp['Serial_Number'].'^^'.$estCost.'"></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Model'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Type'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Location_Name'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Color'].'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format($temp['Hourly_Rate'],2).'</td>';
-		echo '<td> <font color="#ffffff">$'.number_format((((100 - $discountRateFreq)/100)*$temp['Hourly_Rate']),2) .'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format((((100 - $discountRateDaily)/100)*$temp['Hourly_Rate']),2) .'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format($temp['Daily_Rate'],2).'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Capacity'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Transmission_Type'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Bluetooth'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$temp['Aux_Cable'].'</font></td>';
-		echo '<td> <font color="#ffffff">'.$availableUntil.'</font></td>';
-		echo '<td> <font color="#ffffff">$'.number_format($estCost,2).'</font></td>';
-		echo '</tr>';
-		
-	}
-	}
-
 	?>
 	</table>
 
