@@ -36,7 +36,7 @@
 <form action="carAvailability.php" method="post">
 	<?php
 	if ($_SESSION['rentingSuccess'] == -1){
-		echo "Reservation Failed. You already have a car reserved at that time."
+		echo "Reservation Failed. You already have a car reserved at that time.";
 		$_SESSION['rentingSuccess'] == 0;
 	}
 
@@ -82,8 +82,13 @@
 		?>
 	</select><br>
 
-	<input type="radio" name="searchSelection" value="searchByModel" checked>Search By Model
-	<input type="radio" name="searchSelection" value="searchByType">Search By Type<br>
+	IF FALSE -> there is no overlap, perform task
+
+
+
+	
+	<input type="radio" name="searchSelection" value="searchByType">Search By Type
+	<input type="radio" name="searchSelection" value="searchByModel" checked>Search By Model<br>
 
 	<input type="submit" name="search" value="Search">
 </form>
