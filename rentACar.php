@@ -82,8 +82,9 @@
 		?>
 	</select><br>
 
-	<input type="radio" name="searchSelection" value="searchByModel" checked>Search By Model
-	<input type="radio" name="searchSelection" value="searchByType">Search By Type<br>
+	
+	<input type="radio" name="searchSelection" value="searchByType">Search By Type
+	<input type="radio" name="searchSelection" value="searchByModel" checked>Search By Model<br>
 
 	<input type="submit" name="search" value="Search">
 </form>
