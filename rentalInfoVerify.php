@@ -14,6 +14,8 @@
 //Take personal info and set it up into the database
 
 $returnTime = $_POST['return'];
+$oldReturnTime = mysql_query("SELECT Return_Date_Time FROM Reservation
+	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
 $pickupTime = mysql_query("SELECT Pick_Up_Date_Time FROM Reservation
 	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
 $currentSno = mysql_query("SELECT Serial_Number FROM Reservation
@@ -39,6 +41,9 @@ $checkUser = mysql_result(mysql_query("SELECT Username
 if ($checkUser == FALSE) { //CHECK TEST CHECK 
 	mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime'
 	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
+
+	$diff = (strtotime($returnTime) - strtotime($oldReturnTime))/3600;
+	mysql_query("INSERT INTO Extended_Time (Extension, Username, Pick_Up_Date_Time, Return_Date_Time) VALUES ('$diff','$username','$pickupTime','$returnTime')");
 
 	$_SESSION['rentingSuccess'] = 2;
 } else {
