@@ -9,11 +9,12 @@ session_start();
     //Connect to the databasse 
     mysql_select_db($dbDatabase, $db)or die("Couldn't select the database."); 
     //Selects the database 
-	$username = $_POST['username'];
-    $carModel = $_POST['model'];
-    $location = $_POST['location'];
-	$origReturn= $_POST['original'];
-	$newReturn = $_POST['new'];
+    $info = $_POST['resPKey'];
+	$username = $info[0];
+    $carModel = $info[3];
+    $location = $info[4];
+	$origReturn= $info[2];
+	$newReturn = $_POST['return'];
 	$lateby = (strtotime($newReturn) - strtotime($origReturn)) /3600;
 	$latefee = 50 * $lateby; 
 	//Update table
@@ -34,6 +35,7 @@ session_start();
 	//find others affected
 	$sqlAffected = mysql_query("Select * From Reservation 
 	WHERE Pick_Up_Date_Time <= '$newReturn' AND 
+	Pick_Up_Date_Time >= '$origReturn' AND
 	Serial_Number = '$serialNum' AND Username <>'$username';");
 	$_SESSION['affect'] = mysql_fetch_array($sqlAffected);
 	
