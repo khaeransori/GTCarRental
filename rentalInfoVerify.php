@@ -14,6 +14,8 @@
 //Take personal info and set it up into the database
 
 $returnTime = $_POST['return'];
+$pickupTime = mysql_query("SELECT Pick_Up_Date_Time FROM Reservation
+	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
 //$formattedDate = date('Y-m-d H:i:s',strtotime($returnTime));
 $reservationKey = $_POST['resPKey'];
 
@@ -25,9 +27,9 @@ $checkUser = mysql_result(mysql_query("SELECT Username
 			SELECT Username
 			FROM Reservation AS r 
 			WHERE(
-			(r.Pick_Up_Date_Time >='". $pickup."' AND r.Pick_Up_Date_Time<'". $return."') OR 
-			(r.Return_Date_Time >'".$pickup."' AND r.Return_Date_Time<='". $return."') OR 
-			(r.Pick_Up_Date_Time <='".$pickup."' AND r.Return_Date_Time>='". $return."')
+			(r.Pick_Up_Date_Time >='". $pickupTime."' AND r.Pick_Up_Date_Time<'". $returnTime."') OR 
+			(r.Return_Date_Time >'".$pickupTime."' AND r.Return_Date_Time<='". $returnTime."') OR 
+			(r.Pick_Up_Date_Time <='".$pickupTime."' AND r.Return_Date_Time>='". $returnTime."')
 		)
 		)
 		)"),0);
