@@ -17,11 +17,25 @@ $returnTime = $_POST['return'];
 //$formattedDate = date('Y-m-d H:i:s',strtotime($returnTime));
 $reservationKey = $_POST['resPKey'];
 
+$checkUser = mysql_result(mysql_query("SELECT Username 
+		FROM User AS u
+		WHERE (
+		u.Username ='". $user ."' AND
+		u.Username IN ( 
+			SELECT Username
+			FROM Reservation AS r 
+			WHERE(
+			(r.Pick_Up_Date_Time >='". $pickup."' AND r.Pick_Up_Date_Time<'". $return."') OR 
+			(r.Return_Date_Time >'".$pickup."' AND r.Return_Date_Time<='". $return."') OR 
+			(r.Pick_Up_Date_Time <='".$pickup."' AND r.Return_Date_Time>='". $return."')
+		)
+		)
+		)"),0);
 
-//TODO insert check to make sure that date format is correct
-//TYPE MISMATCH ON RETURN TIME. Need to fix and test
-mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime'
-WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
+if ($checkUser == FALSE) { //CHECK TEST CHECK 
+	mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime'
+	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
+}
 
 header('Location: home.php');
 ?>
