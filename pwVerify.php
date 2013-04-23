@@ -25,7 +25,6 @@ $dbHost = "academic-mysql.cc.gatech.edu";         //Location Of Database usually
 
 <p><b>Your Password</b></p>        
 
-
     
 <form action="index.php">
 <?php
@@ -33,7 +32,8 @@ $un = $_POST('un');
 $fn = $_POST('fn');
 $ln = $_POST('ln');
 
-$pw = mysql_result(mysql_query("Select Password from User where Username = '$un' AND Username IN( Select Username FROM Member where Username = '$un' AND First_Name = '$fn' AND Last_Name = '$ln')"),0);
+
+$pw = mysql_result(mysql_query("SELECT Password from User where Username = '".$un."' AND Username IN( Select Username FROM Member where Username = '".$un."' AND First_Name = '".$fn."' AND Last_Name = '".$ln."')"),0);
 
 if($pw==FALSE){
 	echo "Invalid Input.";
