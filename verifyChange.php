@@ -34,6 +34,7 @@ session_start();
 	//find others affected
 	$sqlAffected = mysql_query("Select * From Reservation 
 	WHERE Pick_Up_Date_Time <= '$newReturn' AND 
+	Pick_Up_Date_Time >= '$origReturn' AND
 	Serial_Number = '$serialNum' AND Username <>'$username';");
 	$_SESSION['affect'] = mysql_fetch_array($sqlAffected);
 	
