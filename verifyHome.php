@@ -7,6 +7,7 @@ if($_GET['homeSelection'] == 'viewPersonalInfo'){
 }
 
 else if($_GET['homeSelection'] == 'rentCar'){
+	$_SESSION['rentingSuccess'] = 0;
 	header('Location: rentACar.php');
 }
 

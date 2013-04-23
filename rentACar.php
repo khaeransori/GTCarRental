@@ -37,7 +37,7 @@
 	<?php
 	if ($_SESSION['rentingSuccess'] == -1){
 		echo "Reservation Failed. You already have a car reserved at that time.<br><br>";
-		$_SESSION['rentingSuccess'] == 0;
+		$_SESSION['rentingSuccess'] = 0;
 	}
 
  	?>
