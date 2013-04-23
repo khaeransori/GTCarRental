@@ -14,12 +14,13 @@ session_start();
     $location = $_POST['location'];
 	$origReturn= $_POST['original'];
 	$newReturn = $_POST['new'];
-	//$lateFees = 120;
+	$lateby = (strtotime($newReturn) - strtotime($origReturn)) /3600;
+	$latefee = 50 * $lateby; 
 	//Update table
     $sqlUpdate = mysql_query("UPDATE Reservation 
-	SET Return_Date_Time = '$newReturn'
+	SET Return_Date_Time = '$newReturn', Late_Fees = '$latefee', Late_By='$lateby'
 	WHERE Username = '$username' AND Return_Date_Time = '$origReturn' 
-	AND Serial_Number = '$carModel'");
+	AND Location_Name = '$location'");
 	
 	//find others affected
 	$sqlAffected = mysql_query("Select * From Reservation 
