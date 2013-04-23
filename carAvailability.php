@@ -31,7 +31,7 @@
 
 <!-- ************************************************************* -->  
 
-<form action="rentalAddition.php" method = "POST">
+<form action="rentalAddition.php" method = "post">
 
 <table border = "1">
 	<tr>
@@ -57,6 +57,12 @@
 	$type = $_POST['carType'];
 	$pickup = $_POST['pickup'];
 	$return = $_POST['return'];
+	
+	$_SESSION['pickup'] = $pickup;
+	$_SESSION['return'] = $return;
+	$_SESSION['loc'] = $loc;
+	
+
 	//IMPORTANT CODE
 	//Lists the locations from the SQL table in the option list
 	$getCars = mysql_query("SELECT * 
@@ -65,7 +71,7 @@
 		c.Location_Name ='". $loc ."' AND 
 		((c.Type ='".$type ."') OR (c.Model = '". $model ."')) AND 
 		c.Under_Maintenence_Flag = 0 AND
-		NOT EXISTS ( 
+		c.Serial_Number NOT IN ( 
 			SELECT Serial_Number
 			FROM Reservation AS r 
 			WHERE(
@@ -81,7 +87,12 @@
 	
 	while ($temp = mysql_fetch_assoc($getCars)) {
 		
-		$availableUntil = mysql_result(mysql_query("SELECT Pick_Up_Date_Time FROM Reservation Where Serial_Number = '".$temp['Serial_Number']."' AND Pick_Up_Date_Time>'".$pickup."' Order By (Pick_Up_Date_Time) ASC"),"No Future Reservations Made");
+		$availableUntil = mysql_result(mysql_query("SELECT Pick_Up_Date_Time FROM Reservation Where Serial_Number = '".$temp['Serial_Number']."' AND Pick_Up_Date_Time>'".$pickup."' Order By (Pick_Up_Date_Time) ASC"),0);
+
+		if ($availableUntil == FALSE){
+			$availableUntil = "N/A";
+		}
+
 
 		$date1 = $pickup;
 		$date2 = $return;
