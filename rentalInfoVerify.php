@@ -16,20 +16,22 @@
 $returnTime = $_POST['return'];
 $pickupTime = mysql_query("SELECT Pick_Up_Date_Time FROM Reservation
 	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
+$currentSno = mysql_query("SELECT Serial_Number FROM Reservation
+	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
 //$formattedDate = date('Y-m-d H:i:s',strtotime($returnTime));
 $reservationKey = $_POST['resPKey'];
 
 $checkUser = mysql_result(mysql_query("SELECT Username 
 		FROM User AS u
 		WHERE (
-		u.Username ='". $user ."' AND
 		u.Username IN ( 
 			SELECT Username
-			FROM Reservation AS r 
+			FROM Reservation AS r
 			WHERE(
-			(r.Pick_Up_Date_Time >='". $pickupTime."' AND r.Pick_Up_Date_Time<'". $returnTime."') OR 
+			r.Serial_Number = '". $currentSno."' AND
+			((r.Pick_Up_Date_Time >='". $pickupTime."' AND r.Pick_Up_Date_Time<'". $returnTime."') OR 
 			(r.Return_Date_Time >'".$pickupTime."' AND r.Return_Date_Time<='". $returnTime."') OR 
-			(r.Pick_Up_Date_Time <='".$pickupTime."' AND r.Return_Date_Time>='". $returnTime."')
+			(r.Pick_Up_Date_Time <='".$pickupTime."' AND r.Return_Date_Time>='". $returnTime."'))
 		)
 		)
 		)"),0);
@@ -37,6 +39,10 @@ $checkUser = mysql_result(mysql_query("SELECT Username
 if ($checkUser == FALSE) { //CHECK TEST CHECK 
 	mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime'
 	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
+
+	$_SESSION['rentingSuccess'] = 2;
+} else {
+	$_SESSION['rentingSuccess'] = -2;
 }
 
 header('Location: home.php');
