@@ -23,7 +23,13 @@
 <!-- ************************************************************* -->  
 
 <?php
-
+if($_SESSION['rentingSuccess'] == 2) {
+	echo "Reservation successfully updated.<br><br>";
+	$_SESSION['rentingSuccess'] = 0;
+} else if ($_SESSION['rentingSuccess'] == -2) {
+	echo "Reservation update failed.<br><br>";
+	$_SESSION['rentingSuccess'] = 0;
+}
 
  ?>
 
@@ -32,7 +38,7 @@
        
 
 <form name="homeVerify" action="verifyHome.php" method="get">
-	<input type="radio" name="homeSelection" value="rentCar">Rent a car<br>
+	<input type="radio" name="homeSelection" value="rentCar" checked>Rent a car<br>
 	<input type="radio" name="homeSelection" value="viewPersonalInfo">Enter/View personal information<br>
 	<input type="radio" name="homeSelection" value="viewRentalInfo">View Rental information<br>
 	<input type="submit" value="Next >>">
