@@ -9,3 +9,7 @@
 <form action="createAccount.php" method="post">
     <input type="submit" name="createAccount" value="Create Account">
 </form>
+
+<form action="forgotPass.php" method="post">
+    <input type="submit" name="forgotPass" value="Forgot Password?">
+</form>

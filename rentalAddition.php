@@ -46,7 +46,7 @@ if ($checkUser== FALSE){
 	$seconds_diff = $ts2 - $ts1;
 	$hours_diff = $seconds_diff/(60*60);
 	if ( $hours_diff > 48 ){
-		$_SESSION['rentingSuccess'] = 36;
+		$_SESSION['rentingSuccess'] = -3;
 		header('Location: rentACar.php');
 	}
 
