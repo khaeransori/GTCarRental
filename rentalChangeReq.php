@@ -56,7 +56,7 @@
 	<select name="location">';
 
 		//Lists the locations from the SQL table in the option list
-		$getLocations = mysql_query("SELECT Location_Name FROM Reservation");
+		$getLocations = mysql_query("SELECT DISTINCT Location_Name FROM Reservation");
 		while ($temp = mysql_fetch_assoc($getLocations)) {
 			echo "<option value='".$temp['Location_Name']."'>".$temp['Location_Name']."</option>";
 		}
