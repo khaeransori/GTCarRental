@@ -14,6 +14,7 @@ if(isset($_POST['submit'])){
 
     $user = $_POST['username'];
     $pas = $_POST['password'];
+    $_SESSION['loginFail'] = 0;
 
 	//Get User from the user table
     $sql = mysql_query("SELECT * FROM User WHERE (Username = '$user') and (Password = '$pas')");
@@ -22,8 +23,9 @@ if(isset($_POST['submit'])){
     if(mysql_num_rows($sql) == 1){ 
         $row = mysql_fetch_array($sql);
         $_SESSION['username'] = $row['Username'];
-	$_SESSION['rentingSuccess'] = 0;
+	   $_SESSION['rentingSuccess'] = 0;
     }else{ 
+        $_SESSION['loginFail'] = 1;
         header('Location: index.php'); 
         exit;
     } 

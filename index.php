@@ -1,3 +1,29 @@
+<?php
+	session_start(); 
+?>
+
+<html>
+<head>
+<title>GT Car Rental: Login</title>
+
+<body bgcolor="#000000">
+<center>
+<font color="#ffffff">
+
+</head>
+<body>
+
+<p><b>GT Car Rental Login </b></p>  
+
+
+<?php
+	if ($_SESSION['loginFail'] == 1) {
+			echo "Incorrect username or password<br>";
+			$_SESSION['loginFail'] = 0;
+		}
+?>
+
+
 <form action="verify.php" method="post">
     User Name:<br>
     <input type="text" name="username"><br><br>
