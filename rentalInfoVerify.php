@@ -46,14 +46,14 @@ if ($checkUser == FALSE) { //CHECK TEST CHECK
 	$oldReturn = $timesArray['Return_Date_Time'];
 	$pickupTimeNew = $timesArray['Pick_Up_Date_Time'];
 
-	$diff = (strtotime($returnTime) - strtotime($pickupTimeNew))/3600;
+	$diff = (strtotime($returnTime) - strtotime($oldReturn))/3600;
 
 	if ($diff > 48) { 
 		//user is trying to extend reservation duration beyond 2 days
 		$_SESSION['rentingSuccess'] = -3;
 		header('Location: home.php');
 	} else if ($diff >= 0){
-		mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime', Return_Status = 'Late By ".$diff." hours', Late_By = '$diff'
+		mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime'
 		WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
 		
 		if($diff != 0){
