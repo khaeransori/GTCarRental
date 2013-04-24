@@ -1,3 +1,12 @@
+<?php
+	session_start(); 
+	if ($_SESSION['loginFail'] == 1) {
+		echo "Incorrect username or password<br>";
+		$_SESSION['loginFail'] = 0;
+	}
+?>
+
+
 <form action="verify.php" method="post">
     User Name:<br>
     <input type="text" name="username"><br><br>
