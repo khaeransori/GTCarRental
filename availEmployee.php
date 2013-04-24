@@ -102,13 +102,13 @@
 		)
 		)
 		)");
-	$discountRateFreq = mysql_result(mysql_query("SELECT Discount FROM Driving_Plan WHERE Type ='Frequent'"),0);
-	$discountRateDaily = mysql_result(mysql_query("SELECT Discount FROM Driving_Plan WHERE Type = 'Daily'"),0);
+	$discountRateFreq = mysql_result(mysql_query("SELECT Discount FROM Driving_Plan WHERE Type ='frequentDriving'"),0);
+	$discountRateDaily = mysql_result(mysql_query("SELECT Discount FROM Driving_Plan WHERE Type = 'dailyDriving'"),0);
 	$userPlan = mysql_result(mysql_query("Select Plan FROM Member WHERE Username = '$user'"),0);
 	$discountMult = 1.0;
-	if ($userPlan == "Frequent")
+	if ($userPlan == "frequentDriving")
 		$discountMult = (100-$discountRateFreq)/100;
-	else if($userPlan == "Daily")
+	else if($userPlan == "dailyDriving")
 		$discountMult = (100-$discountRateDaily)/100;
 
 	while ($temp = mysql_fetch_assoc($getCars)) {
