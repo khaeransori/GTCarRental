@@ -249,7 +249,7 @@ if ($hours_diff > 48){
 	} else if ($hours_diff < 0) {
 		echo 'You can not create a reservation whose return time is before the pickup time.<br>';
 		echo '<a href="rentACar.php">Go Back</a>';
-	} else if ($ts1 < $currDate) {
+	} else if (($ts1 - strtotime($currDate))<0) {
 		echo 'You can not create a reservation whose pickup time is before the current time.<br>';
 		echo '<a href="rentACar.php">Go Back</a>';
 	} else {
