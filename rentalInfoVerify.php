@@ -47,7 +47,7 @@ if ($checkUser == FALSE) { //CHECK TEST CHECK
 	$pickupTimeNew = $timesArray['Pick_Up_Date_Time'];
 	$returnTimeNew = strtotime($returnTime);
 
-	$diff = (strtotime($returnTime) - strtotime($oldReturn))/3600;
+	$diff = (strtotime($returnTimeNew) - strtotime($pickupTimeNew))/3600;
 
 	if ($diff > 48) { 
 		//user is trying to extend reservation duration beyond 2 days
