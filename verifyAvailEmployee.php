@@ -9,7 +9,7 @@
  $db = mysql_connect($dbHost,$dbUser,$dbPass)or die("Error connecting to database."); 
  //Connect to the databasse 
  mysql_select_db($dbDatabase, $db)or die("Couldn't select the database.");   
-$opt = $_POST(['cars']);
+$opt = $_POST['cars'];
 
 $pickup = $_SESSION['pickup'];
 $return = $_SESSION['return'];
@@ -30,9 +30,10 @@ else{
 
 
 	mysql_query("INSERT INTO Reservation (Username, Pick_Up_Date_Time, Return_Date_Time, Late_Fees, Return_Status, Late_By, Estimated_Cost, Serial_Number, 	Location_Name) Values ('$user','$pickup','$return','0','On Time','0','$estCost','$serial','$loc')");
-
+'	
+	$_SESSION['affect'] = NULL;
 	header('Location: employeeHome.php');
 
-
+}
 
 ?>
