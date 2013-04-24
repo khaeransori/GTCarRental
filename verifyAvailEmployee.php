@@ -9,13 +9,18 @@
  $db = mysql_connect($dbHost,$dbUser,$dbPass)or die("Error connecting to database."); 
  //Connect to the databasse 
  mysql_select_db($dbDatabase, $db)or die("Couldn't select the database.");   
+
+
+
+
 $opt = $_POST['cars'];
 
-$pickup = $_SESSION['pickup'];
-$return = $_SESSION['return'];
-$loc = $_SESSION['loc'];
+
 $affect = $_SESSION['affect'];
-$user = $affect['username'];
+$user = $affect['Username'];
+$pickup = $affect['Pick_Up_Date_Time'];
+$return = $affect['Return_Date_Time'];
+$loc = $_SESSION['Location_Name'];
 
 mysql_query("Delete from Reservation Where (Username = '$user' AND Pick_Up_Date_Time = '$pickup' AND Return_Date_Time = '$return')");
 
