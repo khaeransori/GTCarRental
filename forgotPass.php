@@ -35,15 +35,15 @@
 
 <form action="pwVerify.php" method="post">
 	Username:
-	<input type="text" name="un"><br>
+	<input type="text" name="un"/><br />
 
 	First Name:
-	<input type="text" name="fn"><br>
+	<input type="text" name="fn"/><br />
 
 	Last Name:
-	<input type="text" name="ln"><br>
+	<input type="text" name="ln"/><br />
 
-	<input type="submit" name="search" value="Give me my password!">
+	<input type="submit" name="search" value="Give me my password!" />
 </form>
 </body>
 </html>
