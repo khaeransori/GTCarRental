@@ -51,6 +51,10 @@
 <th><font color="#ffffff">Available Until</font></th>
 <th><font color="#ffffff">Estimated Cost</font></th>
 </tr>
+<tr>
+<td> <input type="radio" name="cars" value="none" checked></td>
+<td> <font color="#ffffff"> <-- CANCEL RESERVATION </td>
+</tr>
 	<?php
 
 		$affect = $_SESSION['affect'];//get global affect var (coming from verifyAffected.php)
@@ -63,20 +67,13 @@
 		$pickup = $affect['Pick_Up_Date_Time'];
 		$return = $affect['Return_Date_Time'];
 		$serial = $affect['Serial_Number'];
-	$_SESSION['pickup'] = $pickup;
-	$_SESSION['return'] = $return;
-	$_SESSION['loc'] = $loc;
-
-
-	$search = $type;
 
 	//IMPORTANT CODE
 	//Lists the locations from the SQL table in the option list
 	$getCars = mysql_query("SELECT * 
 		FROM Car AS c 
 		WHERE (
-		c.Location_Name ='". $loc ."' AND 
-		((c.Model = '". $search ."') OR (c.Type = '".$search."'))
+		c.Location_Name ='". $loc ."' 
 		AND 
 		c.Under_Maintenence_Flag = 0 AND
 		c.Serial_Number NOT IN ( 
@@ -92,8 +89,7 @@
 	$getOtherCars = mysql_query("SELECT * 
 		FROM Car AS c 
 		WHERE (
-		c.Location_Name <>'". $loc ."' AND 
-		((c.Model = '". $search ."') OR (c.Type = '".$search."'))
+		c.Location_Name <>'". $loc ."'
 		AND 
 		c.Under_Maintenence_Flag = 0 AND
 		c.Serial_Number NOT IN ( 
@@ -215,6 +211,5 @@
 	}
 	?>
 	</table>
-<input type = "submit" value="Cancel Original Reservation" name ="cancel">
-<input type="submit" value="Overwrite Original Reservation" name="reserve">
+<input type="submit" value="Overwrite/Cancel" name="reserve">
 </form>
