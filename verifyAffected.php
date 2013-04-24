@@ -21,7 +21,7 @@ if ( isset( $_POST['cancel'] ) ) {
 	header('Location: employeeHome.php');
 }
 else{
-	header('Location: carAvailability.php');
+	header('Location: availEmployee.php');
 }
 
 ?>
