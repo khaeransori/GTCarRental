@@ -29,6 +29,9 @@ if($_SESSION['rentingSuccess'] == 2) {
 } else if ($_SESSION['rentingSuccess'] == -2) {
 	echo "Reservation update failed.<br><br>";
 	$_SESSION['rentingSuccess'] = 0;
+} else if ($_SESSION['rentingSuccess'] == -3) {
+	echo "Reservation update failed, user can not extend duration beyond 2 days.<br><br>";
+	$_SESSION['rentingSuccess'] = 0;
 }
 
  ?>

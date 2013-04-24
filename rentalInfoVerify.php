@@ -44,19 +44,28 @@ if ($checkUser == FALSE) { //CHECK TEST CHECK
 	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
 	$timesArray = mysql_fetch_array($times);
 	$oldReturn = $timesArray['Return_Date_Time'];
-	$pup = $timesArray['Pick_Up_Date_Time'];
+	$pickupTimeNew = $timesArray['Pick_Up_Date_Time'];
+	$returnTimeNew = strtotime($returnTime);
 
 	$diff = (strtotime($returnTime) - strtotime($oldReturn))/3600;
-	
-	mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime', Return_Status = 'Late By ".$diff." hours', Late_By = '$diff'
-	WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
-	
-	if($diff != 0){
-		
-		mysql_query("INSERT INTO Extended_Time VALUES ('$diff','$username','$pup','$returnTime');");
-	}
 
-	$_SESSION['rentingSuccess'] = 2;
+	if ($diff > 48) { 
+		//user is trying to extend reservation duration beyond 2 days
+		$_SESSION['rentingSuccess'] = -3;
+		header('Location: home.php');
+	} else {
+		mysql_query("UPDATE Reservation SET Return_Date_Time = '$returnTime', Return_Status = 'Late By ".$diff." hours', Late_By = '$diff'
+		WHERE CONCAT(Username, Pick_Up_Date_Time, Return_Date_Time) = '$reservationKey'");
+		
+		if($diff != 0){
+			
+			mysql_query("INSERT INTO Extended_Time VALUES ('$diff','$username','$pickupTimeNew','$returnTime');");
+		}
+
+		$_SESSION['rentingSuccess'] = 2;
+	}
+	
+	
 } else {
 	$_SESSION['rentingSuccess'] = -2;
 }
