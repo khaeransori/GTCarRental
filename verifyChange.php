@@ -24,7 +24,7 @@ session_start();
 	$pickup = $sqlSerial['Pick_Up_Date_Time'];
 	//Update table    
     $sqlUpdate = mysql_query("UPDATE Reservation
-	SET Return_Date_Time = '$newReturn', Late_Fees = '$latefee', Late_By='$lateby'
+	SET Return_Date_Time = '$newReturn', Late_Fees = '$latefee', Late_By='$lateby', Return_Status = 'Late By ".$lateby." hours'
 	WHERE Username = '$username' AND Return_Date_Time = '$origReturn';");
 	
 	//Enter Into Extension Table
