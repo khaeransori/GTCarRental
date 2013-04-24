@@ -252,6 +252,9 @@ if ($hours_diff > 48){
 	} else if (($ts1 - strtotime($currDate))<0) {
 		echo 'You can not create a reservation whose pickup time is before the current time.<br>';
 		echo '<a href="rentACar.php">Go Back</a>';
+	} else if ((mysql_num_rows($getCars) + mysql_num_rows($getOtherCars)) == 0) {
+ 		echo 'There are no cars available based on your specification.<br>';
+		echo '<a href="rentACar.php">Go Back</a>';
 	} else {
 		echo '<input type="submit" value="Reserve"><br>';
 	}
