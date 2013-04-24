@@ -60,7 +60,7 @@
 		$affect = $_SESSION['affect'];//get global affect var (coming from verifyAffected.php)
 		$getTypeSql = mysql_query("SELECT Type FROM CAR WHERE Serial_Number='". $affect['Serial_Number'] ."'");
 		$getModelSql = mysql_query("SELECT Model FROM CAR WHERE Serial_Number='". $affect['Serial_Number'] ."'");
-		$user= $affect['username'];
+		$user= $affect['Username'];
 		$loc = $affect['Location_Name'];
 		$model = $getModelSql; //need to query model
 		$type = $getTypeSql; //need to query type

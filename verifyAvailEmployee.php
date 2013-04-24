@@ -15,7 +15,7 @@ $pickup = $_SESSION['pickup'];
 $return = $_SESSION['return'];
 $loc = $_SESSION['loc'];
 $affect = $_SESSION['affect'];
-$user = $affect['username'];
+$user = $affect['Username'];
 
 mysql_query("Delete from Reservation Where (Username = '$user' AND Pick_Up_Date_Time = '$pickup' AND Return_Date_Time = '$return')");
 
