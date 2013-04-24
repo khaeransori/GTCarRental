@@ -40,18 +40,8 @@
 			$type = $_POST['carType'];
 			$pickup = $_POST['pickup'];
 			$return = $_POST['return'];
-		} else if ( isset( $_SESSION['affect'] ) ) {
-			$affect = $_SESSION['affect'];//get global affect var (coming from verifyAffected.php)
-			$getTypeSql = mysql_query("SELECT Type FROM CAR WHERE Serial_Number='". $affect['Serial_Number'] ."'");
-			$getModelSql = mysql_query("SELECT Model FROM CAR WHERE Serial_Number='". $affect['Serial_Number'] ."'");
-
-			$loc = $affect['Location_Name'];
-			$model = $getModelSql; //need to query model
-			$type = $getModelSql; //need to query type
-			$pickup = $affect['Pick_Up_Date_Time'];
-			$return = $affect['Return_Date_Time'];
 		}
-		
+				
 		$_SESSION['pickup'] = $pickup;
 		$_SESSION['return'] = $return;
 		$_SESSION['loc'] = $loc;
